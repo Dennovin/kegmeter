@@ -53,6 +53,11 @@ class KegmeterStatus(object):
                 self.tap_update_event.set()
                 tap.clear()
 
+    def get_active_tap(self):
+        for tap in self.tap_statuses.values():
+            if tap.last_update is not None:
+                return tap
+
     def update_temp(self, temp_id, temp):
         self.temp_update_event.set()
         self.temp_statuses[temp_id] = temp
