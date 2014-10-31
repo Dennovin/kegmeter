@@ -11,7 +11,8 @@ class Config(object):
     @classmethod
     def get(cls, item):
         cls.parse()
-        return cls.settings[item]
+        if item in cls.settings:
+            return cls.settings[item]
 
     @classmethod
     def parse(cls):

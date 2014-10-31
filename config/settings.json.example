@@ -1,7 +1,12 @@
 {
-  "brewerydb_url":      "http://api.brewerydb.com/v2/",
-  "brewerydb_api_key":  "",
-  "units_per_pulse":    0.07608,
-  "total_keg_units":    640,
-  "hardware_id":        "16c0:0483"
+  "brewerydb_url":        "http://api.brewerydb.com/v2/",
+  "brewerydb_api_key":    "",
+  "units_per_pulse":      0.07608,
+  "total_keg_units":      640,
+  "hardware_id":          "16c0:0483",
+  "web_port":             8080,
+  "cookie_secret":        "",
+  "google_oauth_url":     "",
+  "google_oauth_key":     "",
+  "google_oauth_secret":  ""
 }

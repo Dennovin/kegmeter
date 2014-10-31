@@ -2,6 +2,7 @@ create table taps (
   tap_id integer primary key,
   beer_id text,
   last_updated integer,
+  last_updated_by text,
   amount_poured integer default 0
 );
 

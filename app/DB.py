@@ -27,15 +27,16 @@ class DB(object):
         logging.debug("Getting taps from database")
 
         cursor = cls.connect().cursor()
-        cursor.execute("select tap_id, coalesce(beer_id, ''), last_updated, amount_poured from taps order by tap_id")
+        cursor.execute("select tap_id, coalesce(beer_id, ''), last_updated, last_updated_by, amount_poured from taps order by tap_id")
 
         for row in cursor:
             taps.append({
                     "tap_id": row[0],
                     "beer_id": row[1],
                     "last_updated": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(row[2])),
-                    "amount_poured": row[3] * Config.get("units_per_pulse"),
-                    "pct_full": 1 - (row[3] * Config.get("units_per_pulse") / Config.get("total_keg_units")),
+                    "last_updated_by": row[3],
+                    "amount_poured": row[4] * Config.get("units_per_pulse"),
+                    "pct_full": 1 - (row[4] * Config.get("units_per_pulse") / Config.get("total_keg_units")),
                     })
 
         cursor.close()
