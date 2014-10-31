@@ -1,3 +1,4 @@
+import logging
 import os
 import sqlite3
 import time
@@ -23,6 +24,8 @@ class DB(object):
     def get_taps(cls):
         taps = []
 
+        logging.debug("Getting taps from database")
+
         cursor = cls.connect().cursor()
         cursor.execute("select tap_id, coalesce(beer_id, ''), last_updated, amount_poured from taps order by tap_id")
 
@@ -38,3 +41,12 @@ class DB(object):
         cursor.close()
 
         return taps
+
+    @classmethod
+    def update_amount_poured(cls, tap_id, pulses):
+        logging.debug("Updating tap {} in database, {} pulses".format(tap_id, pulses))
+
+        db = cls.connect()
+        cursor = db.cursor()
+        cursor.execute("update taps set amount_poured = amount_poured + ? where tap_id = ?", [pulses, tap_id])
+        db.commit()

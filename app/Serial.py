@@ -1,0 +1,83 @@
+import logging
+import re
+import serial
+import serial.tools.list_ports_posix
+import struct
+import time
+
+from Config import Config
+from Status import TapStatus
+
+HEADER_SIZE = 8
+
+class SerialListener(object):
+    def __init__(self, kegmeter_status):
+        self.kegmeter_status = kegmeter_status
+
+        self.hardware_id = Config.get("hardware_id")
+        self.statuses = dict()
+
+        hwinfo_re = re.compile("^USB.*PID=([0-9a-f\:]+)")
+        for dev, dev_name, hwinfo in serial.tools.list_ports_posix.comports():
+            match = hwinfo_re.match(hwinfo)
+            if match is not None and match.group(1) == self.hardware_id:
+                logging.info("Found device on port {}".format(dev))
+                self.port = serial.Serial(dev, 38400, timeout=5)
+
+        if self.port is None:
+            logging.error("Couldn't find device.")
+            raise IOError()
+
+    def receive_packet(self):
+        self.port.write("1")
+
+        try:
+            header = bytearray(self.port.read(HEADER_SIZE))
+
+            buffer_size = int(header[0])
+            num_taps = int(header[1])
+            num_temp = int(header[2])
+            num_ports = num_taps + num_temp
+        except Exception as e:
+            logging.error("Error reading header: {}".format(e))
+            return
+
+        try:
+            response = self.port.read(buffer_size - HEADER_SIZE)
+            self.port.flush()
+        except Exception as e:
+            logging.error("Error reading from device: {}".format(e))
+            return
+
+        if len(response) != 8 * num_ports:
+            logging.error("Invalid response length")
+            return
+
+        for i in range(num_taps):
+            if i + 1 not in self.kegmeter_status.tap_statuses:
+                self.kegmeter_status.add_tap(i + 1)
+
+        values = struct.unpack("<" + ("Q" * num_ports), response)
+
+        taps = values[:num_taps]
+        temp = values[num_taps:]
+
+        # Tap meters
+        for i, val in enumerate(taps):
+            if val > 0:
+                logging.debug("Output on port {}: {} pulses".format(i, val))
+                self.kegmeter_status.update_tap(i + 1, val)
+
+        self.kegmeter_status.cleanup_taps()
+
+        # Temperature monitors
+        for i, val in enumerate(temp):
+            temp_c = (val * 500.0 / 1023.0) - 50.0
+            self.kegmeter_status.update_temp(i + 1, temp_c)
+
+    def listen(self, interval=0.1):
+        while not self.kegmeter_status.interrupt_event.is_set():
+            self.receive_packet()
+            time.sleep(interval)
+
+        logging.error("Serial listener exiting")

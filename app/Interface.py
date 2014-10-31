@@ -18,7 +18,6 @@ class TapDisplay(gtk.VBox):
 
         self.tap_id = tap_id
         self.beer_id = None
-        self.update_event = None
 
         self.image = gtk.Image()
         self.pack_start(self.image, expand=False, padding=40)
@@ -114,7 +113,8 @@ class TapDisplay(gtk.VBox):
 
 
 class KegMeter(object):
-    def __init__(self):
+    def __init__(self, kegmeter_status):
+        self.kegmeter_status = kegmeter_status
         self.last_update = None
 
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
@@ -158,11 +158,14 @@ class KegMeter(object):
         self.main_box.show()
 
     def update(self):
-        if self.update_event is None or not self.update_event.is_set():
+        if self.kegmeter_status.interrupt_event.is_set():
+            logging.error("Interface exiting")
+            return False
+
+        if not self.kegmeter_status.tap_update_event.is_set():
             return True
 
-        logging.debug("updating!")
-        self.update_event.clear()
+        self.kegmeter_status.tap_update_event.clear()
         for i, tap in self.taps.items():
             alloc = tap.get_allocation()
             if alloc.x < 0:
