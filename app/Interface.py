@@ -175,5 +175,9 @@ class KegMeter(object):
              self.taps[tap["tap_id"]].update(tap)
 
     def main(self):
-        gobject.idle_add(self.update)
+        gtk.gdk.threads_init()
+
+        gobject.timeout_add(100, self.update)
+        gtk.threads_enter()
         gtk.main()
+        gtk.threads_leave()
