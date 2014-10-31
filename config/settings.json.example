@@ -1,0 +1,7 @@
+{
+  "brewerydb_url":      "http://api.brewerydb.com/v2/",
+  "brewerydb_api_key":  "",
+  "units_per_pulse":    0.07608,
+  "total_keg_units":    640,
+  "hardware_id":        "16c0:0483"
+}
