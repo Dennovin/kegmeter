@@ -1,0 +1,175 @@
+body {
+    font-family: "PT Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+div.ontap {
+    width: 100%;
+    height: 25px;
+    background: #E8E9DE url("/static/bg-introduction.gif") 100% 100% no-repeat;
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+div.body-container {
+    width: 980px;
+    height: 544px;
+    position: relative;
+}
+
+div.tap {
+    width: 244px;
+    height: 499px;
+    float: left;
+    position: relative;
+    border-right: 1px solid #EEE;
+}
+
+div.tap.inactive {
+    display: none;
+}
+
+div.tap .name {
+    position: absolute;
+    top: 260px;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+div.tap.active .name {
+    background: transparent;
+    font-size: 30px;
+    font-weight: bold;
+    border-bottom: 1px solid #888;
+    top: 20px;
+    left: 245px;
+    width: 732px;
+}
+
+div.tap .beerimg {
+    position: absolute;
+    top: 50px;
+    left: 25px;
+    width: 194px;
+    height: 194px;
+}
+
+div.tap .brewery {
+    position: absolute;
+    top: 350px;
+    width: 245px;
+    font-size: 12px;
+    text-align: center;
+}
+
+div.tap.active .brewery {
+    top: 270px;
+    left: 245px;
+    width: 732px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+div.tap .brewerydescription {
+    display: none;
+}
+
+div.tap.active .brewerydescription {
+    display: block;
+    position: absolute;
+    top: 315px;
+    left: 254px;
+    width: 712px;
+    height: 160px;
+    overflow: hidden;
+    text-align: justify;
+    font-size: 12px;
+}
+
+div.tap .location {
+    position: absolute;
+    top: 370px;
+    width: 245px;
+    font-size: 12px;
+    text-align: center;
+}
+
+div.tap.active .location {
+    top: 286px;
+    left: 245px;
+    width: 732px;
+    font-size: 14px;
+}
+
+div.tap .abv {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    width: 245px;
+}
+
+div.tap .style {
+    position: absolute;
+    top: 284px;
+    width: 245px;
+    font-size: 16px;
+    text-align: center;
+}
+
+div.tap.active .style {
+    position: absolute;
+    top: 65px;
+    left: 245px;
+    width: 732px;
+    font-size: 18px;
+}
+
+div.tap .description {
+    display: none;
+}
+
+div.tap.active .description {
+    display: block;
+    position: absolute;
+    top: 90px;
+    left: 254px;
+    width: 712px;
+    height: 165px;
+    overflow: hidden;
+    text-align: justify;
+    font-size: 12px;
+}
+
+div.tap-id {
+    width: 244px;
+    height: 20px;
+    float: left;
+    background-color: #BBB;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    border-top: 1px solid #444;
+    border-right: 1px solid #AAA;
+}
+
+div.tap-id.active {
+    background-color: #FF8;
+}
+
+div.tap.active {
+    width: 100%;
+}

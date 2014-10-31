@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>On Tap Admin</title>
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/static/admin.css" type="text/css">
+  </head>
+
+  <body>
+    <div class="body-container">
+
+      {% for tap in taps %}
+      <div class="input-row" tap_id="{{ tap["tap_id"] }}" beer_id="{{ tap["beer_id"] }}">
+        <span class="label">Tap {{ tap["tap_id"] }}:</span>
+        <span class="currentname"></span>
+        <span class="lastupdate">Last updated by <span class="lastupdatename">{{ tap["last_updated_by"] }}</span> at <span class="lastupdatetime">{{ tap["last_updated"] }}</span></span>
+        <input class="searchbox" type="text" name="searchbox" />
+        <ul class="options" />
+      </div>
+      {% end %}
+
+    <script type="text/javascript" src="/static/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="/static/common.js"></script>
+    <script type="text/javascript" src="/static/admin.js"></script>
+  </body>
+</html>

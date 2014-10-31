@@ -1,0 +1,102 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "PT Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    background-color: #ccc;
+}
+
+.body-container {
+    display: block;
+    margin: 0 auto;
+    padding: 1em 1em 0 1em;
+    width: 1020px;
+    background-color: white;
+    border-left: 1px solid #666;
+    border-right: 1px solid #666;
+    min-height: 100%;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+.input-row {
+    margin-bottom: 1em;
+    padding: 2px 0;
+    position: relative;
+}
+
+.input-row .label {
+    display: inline-block;
+    width: 5em;
+    text-align: right;
+    margin-right: 1em;
+}
+
+.input-row .currentname {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.input-row .currentname.empty {
+    font-weight: normal;
+    color: #777;
+}
+
+.input-row .lastupdate {
+    position: absolute;
+    left: 25em;
+    color: #aaa;
+}
+
+.input-row .lastupdate .lastupdatename,
+.input-row .lastupdate .lastupdatetime {
+    color: #000;
+}
+
+.input-row input[type=text] {
+    display: none;
+}
+
+.input-row .options {
+    display: none;
+    margin-left: 5em;
+}
+
+.input-row .options li {
+    list-style: none;
+    padding-left: 0.5em;
+}
+
+.input-row .options li.no-results {
+    font-style: italic;
+}
+
+.input-row .options li.option {
+    cursor: pointer;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.input-row .options li.option:hover {
+    background-color: #efb;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.input-row .options li.option .name {
+    display: inline-block;
+    font-weight: bold;
+    width: 14em;
+    margin-right: 0.5em;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.input-row .options li.option .brewery {
+    vertical-align: middle;
+}
