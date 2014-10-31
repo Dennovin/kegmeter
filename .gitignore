@@ -52,3 +52,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Config file
+config/settings.json
+
+# Database
+db/db.sql
