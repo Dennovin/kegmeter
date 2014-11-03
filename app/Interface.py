@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 import requests
 import urlparse
 
@@ -10,38 +11,19 @@ from DB import DB
 
 mysterybeer_file = os.path.join(Config.base_dir(), "images", "mysterybeer.png")
 
-class TapDisplay(Gtk.VBox):
-    def __init__(self, tap_id):
+class TapDisplay(object):
+    def __init__(self, tap_id, gtkobj):
         super(TapDisplay, self).__init__()
 
         self.tap_id = tap_id
+        self.gtkobj = gtkobj
         self.beer_id = None
         self.active = False
 
-        self.set_name("tap{}".format(self.tap_id))
-        self.get_style_context().add_class("tap_display")
-
-        self.parts = [
-            { "name": "image", "type": Gtk.Image, "pack": "start" },
-            { "name": "beer_name", "type": Gtk.Label, "pack": "start" },
-            { "name": "beer_style", "type": Gtk.Label, "pack": "start" },
-            { "name": "brewery_name", "type": Gtk.Label, "pack": "start" },
-            { "name": "brewery_loc", "type": Gtk.Label, "pack": "start" },
-            { "name": "tap_num", "type": Gtk.Label, "pack": "end" },
-            { "name": "pct_full_meter", "type": Gtk.ProgressBar, "pack": "end" },
-            { "name": "abv", "type": Gtk.Label, "pack": "end" },
-            ]
-
-        for part in self.parts:
-            gtkobj = part["type"]()
-            gtkobj.get_style_context().add_class(part["name"])
-
-            if part["pack"] == "start":
-                self.pack_start(gtkobj, False, False, 0)
-            else:
-                self.pack_end(gtkobj, False, False, 0)
-
-            setattr(self, part["name"], gtkobj)
+        for child in self.gtkobj.get_children():
+            m = re.match("^(.*)_\d$", Gtk.Buildable.get_name(child))
+            if m:
+                setattr(self, m.group(1), child)
 
     def update(self, beer):
         self.make_inactive()
@@ -69,8 +51,8 @@ class TapDisplay(Gtk.VBox):
         self.brewery_loc.set_text(loc["locality"] + ", " + loc["region"] + ", " + loc["country"]["isoThree"])
         self.abv.set_text("{}%".format(data["abv"]))
 
-        img_size = int(self.get_allocation().width * 0.9)
-        logging.debug("allocation: {}".format(self.get_allocation().width))
+        img_size = int(self.gtkobj.get_allocation().width * 0.9)
+        logging.debug("allocation: {}".format(self.gtkobj.get_allocation().width))
         loader = GdkPixbuf.PixbufLoader()
 
         if "labels" in data:
@@ -106,38 +88,20 @@ class KegMeter(object):
         self.kegmeter_status = kegmeter_status
         self.last_update = None
 
-        self.window = Gtk.Window()
-        self.window.set_name("OnTap")
-        self.window.fullscreen()
-        self.window.show_now()
+        self.builder = Gtk.Builder()
+        self.builder.add_from_file(os.path.join(Config.base_dir(), "app", "interface.xml"))
+        self.window = self.builder.get_object("OnTap")
 
         self.style_provider = Gtk.CssProvider()
         self.style_provider.load_from_path(os.path.join(Config.base_dir(), "app", "interface.css"))
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), self.style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-        self.main_box = Gtk.VBox(homogeneous=False)
-        self.window.add(self.main_box)
-
-        title_box = Gtk.EventBox()
-
-        title = Gtk.Label("On Tap")
-        title_box.add(title)
-        title.get_style_context().add_class("title")
-
-        self.main_box.pack_start(title_box, False, False, 10)
-
-        self.taps_container = Gtk.HBox(homogeneous=True)
         self.taps = dict()
+        for tap in DB.get_taps():
+            gtkobj = self.builder.get_object("TapDisplay_{}".format(tap["tap_id"]))
+            self.taps[tap["tap_id"]] = TapDisplay(tap["tap_id"], gtkobj)
 
-        for i, tap in enumerate(DB.get_taps()):
-            tapdisp = TapDisplay(tap["tap_id"])
-            tapdisp.kegmeter = self
-
-            self.taps_container.pack_start(tapdisp, True, True, 0)
-            self.taps[tap["tap_id"]] = tapdisp
-
-        self.main_box.add(self.taps_container)
-
+        self.window.fullscreen()
         self.window.show_all()
 
     def update(self):
@@ -149,10 +113,6 @@ class KegMeter(object):
             return True
 
         self.kegmeter_status.tap_update_event.clear()
-        for i, tap in self.taps.items():
-            alloc = tap.get_allocation()
-            if alloc.x < 0:
-                return True
 
         active_tap = self.kegmeter_status.get_active_tap()
         if active_tap is not None:
