@@ -36,8 +36,6 @@ class KegmeterStatus(object):
 
     def interrupt(self, signal, frame):
         logging.error("Got keyboard interrupt, exiting")
-        logging.error(frame)
-
         self.interrupt_event.set()
 
     def add_tap(self, tap_id):
