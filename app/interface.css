@@ -8,55 +8,10 @@
 }
 
 #OnTap .tap_display {
-    padding: 0 2px;
-    border-width: 0 1px;
-}
-
-#OnTap .title {
-    margin: 0;
-    padding: 0;
-    font-size: 24pt;
-    font-weight: bold;
-}
-
-#OnTap .beer_name {
-    font-size: 16pt;
-    font-weight: bold;
-    padding: 3em 0 0.5em;
-}
-
-#OnTap .beer_style {
-    font-size: 10pt;
-    padding: 0 0 3em;
-}
-
-#OnTap .brewery_name {
-    font-size: 14pt;
-    font-weight: bold;
-    padding: 0 0 0.5em;
-}
-
-#OnTap .brewery_loc {
-    font-size: 12pt;
-    padding: 0;
-}
-
-#OnTap .abv {
-    font-size: 24pt;
-    font-weight: bold;
-    padding: 0;
+    border-right-color: #000;
+    border-right-width: 1px;
 }
 
 #OnTap .tap_num {
     background-color: #aaa;
-    font-weight: bold;
-    font-size: 18pt;
-}
-
-#OnTap .image {
-    margin: 10em 0 5em 0;
-}
-
-#OnTap .pct_full_meter {
-    margin: 1em 5px 0;
 }

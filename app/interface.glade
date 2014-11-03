@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkWindow" id="OnTap">
+    <property name="name">OnTap</property>
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">On Tap</property>
     <child>
       <object class="GtkBox" id="VBox">
         <property name="visible">True</property>
@@ -41,6 +44,9 @@
                     <property name="margin_top">100</property>
                     <property name="margin_bottom">50</property>
                     <property name="stock">gtk-missing-image</property>
+                    <style>
+                      <class name="image"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -57,6 +63,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 20"/>
                     </attributes>
+                    <style>
+                      <class name="beer_name"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -73,6 +82,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans 15"/>
                     </attributes>
+                    <style>
+                      <class name="beer_style"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -88,6 +100,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 16"/>
                     </attributes>
+                    <style>
+                      <class name="brewery_name"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -103,6 +118,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans 12"/>
                     </attributes>
+                    <style>
+                      <class name="brewery_loc"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -124,6 +142,9 @@
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 16"/>
                         </attributes>
+                        <style>
+                          <class name="tap_num"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -132,6 +153,9 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="tap_num_box"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -148,6 +172,9 @@
                     <property name="margin_left">10</property>
                     <property name="margin_right">10</property>
                     <property name="margin_top">10</property>
+                    <style>
+                      <class name="pct_full_meter"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -164,6 +191,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 20"/>
                     </attributes>
+                    <style>
+                      <class name="abv"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -172,6 +202,9 @@
                     <property name="position">9</property>
                   </packing>
                 </child>
+                <style>
+                  <class name="tap_display"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -191,6 +224,9 @@
                     <property name="margin_top">100</property>
                     <property name="margin_bottom">50</property>
                     <property name="stock">gtk-missing-image</property>
+                    <style>
+                      <class name="image"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -207,6 +243,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 20"/>
                     </attributes>
+                    <style>
+                      <class name="beer_name"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -223,6 +262,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans 15"/>
                     </attributes>
+                    <style>
+                      <class name="beer_style"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -238,6 +280,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 16"/>
                     </attributes>
+                    <style>
+                      <class name="brewery_name"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -253,6 +298,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans 12"/>
                     </attributes>
+                    <style>
+                      <class name="brewery_loc"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -270,10 +318,13 @@
                       <object class="GtkLabel" id="tap_num_2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">1</property>
+                        <property name="label" translatable="yes">2</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 16"/>
                         </attributes>
+                        <style>
+                          <class name="tap_num"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -282,6 +333,9 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="tap_num_box"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -298,6 +352,9 @@
                     <property name="margin_left">10</property>
                     <property name="margin_right">10</property>
                     <property name="margin_top">10</property>
+                    <style>
+                      <class name="pct_full_meter"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -314,6 +371,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 20"/>
                     </attributes>
+                    <style>
+                      <class name="abv"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -322,6 +382,9 @@
                     <property name="position">9</property>
                   </packing>
                 </child>
+                <style>
+                  <class name="tap_display"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -341,6 +404,9 @@
                     <property name="margin_top">100</property>
                     <property name="margin_bottom">50</property>
                     <property name="stock">gtk-missing-image</property>
+                    <style>
+                      <class name="image"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -357,6 +423,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 20"/>
                     </attributes>
+                    <style>
+                      <class name="beer_name"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -373,6 +442,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans 15"/>
                     </attributes>
+                    <style>
+                      <class name="beer_style"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -388,6 +460,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 16"/>
                     </attributes>
+                    <style>
+                      <class name="brewery_name"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -403,6 +478,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans 12"/>
                     </attributes>
+                    <style>
+                      <class name="brewery_loc"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -420,10 +498,13 @@
                       <object class="GtkLabel" id="tap_num_3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">1</property>
+                        <property name="label" translatable="yes">3</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 16"/>
                         </attributes>
+                        <style>
+                          <class name="tap_num"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -432,6 +513,9 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="tap_num_box"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -448,6 +532,9 @@
                     <property name="margin_left">10</property>
                     <property name="margin_right">10</property>
                     <property name="margin_top">10</property>
+                    <style>
+                      <class name="pct_full_meter"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -464,6 +551,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 20"/>
                     </attributes>
+                    <style>
+                      <class name="abv"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -472,6 +562,9 @@
                     <property name="position">9</property>
                   </packing>
                 </child>
+                <style>
+                  <class name="tap_display"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -491,6 +584,9 @@
                     <property name="margin_top">100</property>
                     <property name="margin_bottom">50</property>
                     <property name="stock">gtk-missing-image</property>
+                    <style>
+                      <class name="image"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -507,6 +603,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 20"/>
                     </attributes>
+                    <style>
+                      <class name="beer_name"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -523,6 +622,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans 15"/>
                     </attributes>
+                    <style>
+                      <class name="beer_style"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -538,6 +640,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 16"/>
                     </attributes>
+                    <style>
+                      <class name="brewery_name"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -553,6 +658,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans 12"/>
                     </attributes>
+                    <style>
+                      <class name="brewery_loc"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -570,10 +678,13 @@
                       <object class="GtkLabel" id="tap_num_4">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">1</property>
+                        <property name="label" translatable="yes">4</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 16"/>
                         </attributes>
+                        <style>
+                          <class name="tap_num"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -582,6 +693,9 @@
                         <property name="position">0</property>
                       </packing>
                     </child>
+                    <style>
+                      <class name="tap_num_box"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -598,6 +712,9 @@
                     <property name="margin_left">10</property>
                     <property name="margin_right">10</property>
                     <property name="margin_top">10</property>
+                    <style>
+                      <class name="pct_full_meter"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -614,6 +731,9 @@
                     <attributes>
                       <attribute name="font-desc" value="PT Sans Bold 20"/>
                     </attributes>
+                    <style>
+                      <class name="abv"/>
+                    </style>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -622,6 +742,9 @@
                     <property name="position">9</property>
                   </packing>
                 </child>
+                <style>
+                  <class name="tap_display"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
