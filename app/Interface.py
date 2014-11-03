@@ -106,7 +106,7 @@ class KegMeter(object):
 
     def update(self):
         if self.kegmeter_status.interrupt_event.is_set():
-            logging.error("Interface exiting")
+            self.shutdown()
             return False
 
         if not self.kegmeter_status.tap_update_event.is_set():
@@ -130,3 +130,7 @@ class KegMeter(object):
         GObject.idle_add(self.update)
         Gtk.main()
 
+    def shutdown(self):
+        logging.error("Interface exiting")
+        self.window.destroy()
+        Gtk.main_quit()

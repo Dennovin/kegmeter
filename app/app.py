@@ -33,10 +33,10 @@ def run_app():
     signal.signal(signal.SIGINT, status.interrupt)
 
     if not args.no_interface:
-        app = KegMeter(status)
-        app_thread = threading.Thread(target=app.main)
-        app_thread.daemon = True
-        app_thread.start()
+        interface = KegMeter(status)
+        interface_thread = threading.Thread(target=interface.main)
+        interface_thread.daemon = True
+        interface_thread.start()
 
     if not args.no_serial:
         listener = SerialListener(status)
@@ -53,7 +53,7 @@ def run_app():
     status.tap_update_event.set()
 
     try:
-        while True:
+        while not status.interrupt_event.is_set():
             time.sleep(0.1)
     except KeyboardInterrupt:
         status.interrupt()
@@ -61,12 +61,13 @@ def run_app():
         raise
 
     if not args.no_interface:
-        app_thread.join()
+        interface_thread.join()
 
     if not args.no_serial:
         listener_thread.join()
 
     if not args.no_web:
+        webserver.shutdown()
         webserver_thread.join()
 
 

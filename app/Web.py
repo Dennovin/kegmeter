@@ -1,3 +1,4 @@
+import logging
 import memcache
 import oauth2client.client
 import os
@@ -137,7 +138,10 @@ class WebServer(object):
             )
 
         self.app.listen(Config.get("web_port"))
-        tornado.ioloop.IOLoop.instance().start()
+        self.ioloop = tornado.ioloop.IOLoop.instance()
+        self.ioloop.start()
 
-
+    def shutdown(self):
+        logging.error("Web server exiting")
+        self.ioloop.stop()
 
