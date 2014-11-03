@@ -89,7 +89,7 @@ class KegMeter(object):
         self.last_update = None
 
         self.builder = Gtk.Builder()
-        self.builder.add_from_file(os.path.join(Config.base_dir(), "app", "interface.xml"))
+        self.builder.add_from_file(os.path.join(Config.base_dir(), "app", "interface.glade"))
         self.window = self.builder.get_object("OnTap")
 
         self.style_provider = Gtk.CssProvider()
