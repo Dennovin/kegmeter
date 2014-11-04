@@ -2,14 +2,15 @@ import logging
 import os
 import re
 import requests
-import urlparse
 
 from gi.repository import Gtk, Gdk, GdkPixbuf, GObject
 
 from Config import Config
 from DB import DB
+from Untappd import Beer
 
 mysterybeer_file = os.path.join(Config.base_dir(), "images", "mysterybeer.png")
+
 
 class TapDisplay(object):
     def __init__(self, tap_id, gtkobj):
@@ -25,51 +26,39 @@ class TapDisplay(object):
             if m:
                 setattr(self, m.group(1), child)
 
-    def update(self, beer):
+    def update(self, tap):
         self.make_inactive()
 
-        if beer["beer_id"] == self.beer_id:
+        if tap["beer_id"] == self.beer_id:
             return
-
-        url = urlparse.urljoin(Config.get("brewerydb_url"), "beer/{}?withBreweries=Y&key={}".format(beer["beer_id"], Config.get("brewerydb_api_key")))
-        req = requests.get(url, timeout=1)
 
         try:
-            json = req.json()
+            beer = Beer.new_from_id(tap["beer_id"])
         except Exception as e:
-            logging.error("Couldn't parse JSON from {}: {}".format(url, e))
+            logging.error("Couldn't look up beer ID {}: {}".format(beer_id, e))
             return
 
-        self.beer_id = beer["beer_id"]
-
-        data = json["data"]
-        loc = data["breweries"][0]["locations"][0]
-
-        self.beer_name.set_text(data["name"])
-        self.beer_style.set_text(data["style"]["name"])
-        self.brewery_name.set_text(data["breweries"][0]["name"])
-        self.brewery_loc.set_text(loc["locality"] + ", " + loc["region"] + ", " + loc["country"]["isoThree"])
-        self.abv.set_text("{}%".format(data["abv"]))
+        self.beer_name.set_text(beer.beer_name)
+        self.beer_style.set_text(beer.beer_style)
+        self.brewery_name.set_text(beer.brewery_name)
+        self.brewery_loc.set_text(beer.brewery_loc)
+        self.abv.set_text("{}%".format(beer.abv))
 
         img_size = int(self.gtkobj.get_allocation().width * 0.9)
         logging.debug("allocation: {}".format(self.gtkobj.get_allocation().width))
         loader = GdkPixbuf.PixbufLoader()
 
-        if "labels" in data:
-            img_url = data["labels"]["large"]
-            imgreq = requests.get(img_url)
-            loader.write(imgreq.content)
-        else:
-            with open(mysterybeer_file, "r") as img_file:
-                loader.write(img_file.read())
+        img_url = beer.label
+        imgreq = requests.get(img_url)
+        loader.write(imgreq.content)
 
         pixbuf = loader.get_pixbuf()
         pixbuf = pixbuf.scale_simple(img_size, img_size, GdkPixbuf.InterpType.BILINEAR)
         self.image.set_from_pixbuf(pixbuf)
         loader.close()
 
-        self.pct_full_meter.set_fraction(beer["pct_full"])
-        self.pct_full_meter.set_text("{}%".format(int(beer["pct_full"] * 100)))
+        self.pct_full_meter.set_fraction(tap["pct_full"])
+        self.pct_full_meter.set_text("{}%".format(int(tap["pct_full"] * 100)))
 
     def make_active(self):
         if self.active:
@@ -82,6 +71,7 @@ class TapDisplay(object):
             return
 
         self.get_style_context().remove_class("active")
+
 
 class KegMeter(object):
     def __init__(self, kegmeter_status):
