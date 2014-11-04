@@ -6,6 +6,7 @@ import signal
 import threading
 import time
 
+from DB import DB
 from Interface import KegMeter
 from Serial import SerialListener
 from Status import KegmeterStatus
@@ -14,6 +15,8 @@ from Web import WebServer
 def run_app():
     parser = argparse.ArgumentParser()
 
+    parser.add_argument("--init-db", dest="init_db", action="store_true",
+                        help="Initialize database and exit.")
     parser.add_argument("--no-interface", dest="no_interface", action="store_true",
                         help="Do not run interface.")
     parser.add_argument("--no-serial", dest="no_serial", action="store_true",
@@ -27,6 +30,10 @@ def run_app():
 
     if args.debug:
         logging.getLogger().setLevel(logging.DEBUG)
+
+    if args.init_db:
+        DB.init_db()
+        sys.exit(0)
 
     status = KegmeterStatus()
 

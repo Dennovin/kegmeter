@@ -51,5 +51,8 @@ sudo -u kegmeter unzip /tmp/fonts.zip -d /home/kegmeter/.fonts
 # Install Python requirements
 sudo pip install /data/kegmeter/app
 
+# Initialize the database
+sudo -u kegmeter /data/kegmeter/app/app.py --init-db
+
 # Reboot... and hopefully everything works
 sudo reboot
