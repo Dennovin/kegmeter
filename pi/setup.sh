@@ -21,6 +21,8 @@ sudo chown kegmeter /data
 ( cd /data && sudo -u kegmeter git clone https://github.com/Dennovin/kegmeter.git )
 
 # Set up autologin/autostart
+sudo update-rc.d lightdm defaults
+
 cat | sudo tee /etc/lightdm/lightdm.conf <<EOF
 [LightDM]
 
