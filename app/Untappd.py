@@ -51,10 +51,11 @@ class Beer(object):
         obj.beer_id = beer["bid"]
         obj.beer_name = beer["beer_name"]
         obj.beer_style = beer["beer_style"]
-        obj.label = beer["beer_label"]
+        obj.beer_label = beer["beer_label"]
         obj.description = beer["beer_description"]
         obj.abv = beer["beer_abv"]
         obj.brewery_name = brewery["brewery_name"]
+        obj.brewery_label = brewery["brewery_label"]
         obj.brewery_loc = "{}, {}, {}".format(
             brewery["location"]["brewery_city"],
             brewery["location"]["brewery_state"],

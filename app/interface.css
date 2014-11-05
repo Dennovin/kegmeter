@@ -7,9 +7,15 @@
     font-family: "PT Sans";
 }
 
-#OnTap .tap_frame {
+#OnTap .title {
+    background-color: #ccc;
+    border-bottom: 2px solid #000;
+}
+
+#OnTap .tap_display {
     margin: 0;
     padding: 0 0 10px 0;
+    border: 1px solid black;
 }
 
 #OnTap .tap_num {

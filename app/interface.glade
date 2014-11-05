@@ -20,6 +20,9 @@
               <attribute name="font-desc" value="PT Sans Bold 24"/>
               <attribute name="weight" value="bold"/>
             </attributes>
+            <style>
+              <class name="title"/>
+            </style>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -33,191 +36,225 @@
             <property name="can_focus">False</property>
             <property name="homogeneous">True</property>
             <child>
-              <object class="GtkFrame" id="TapFrame_1">
+              <object class="GtkBox" id="TapDisplay_1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">none</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox" id="TapDisplay_1">
+                  <object class="GtkLabel" id="beer_name_1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
+                    <property name="margin_top">100</property>
+                    <property name="label" translatable="yes">&lt;beer name&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 24"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_name"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="beer_style_1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="label" translatable="yes">&lt;beer style&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 17"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_style"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="labels_1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="margin_top">20</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="spacing">10</property>
                     <child>
-                      <object class="GtkImage" id="image_1">
+                      <object class="GtkImage" id="brewery_label_1">
+                        <property name="width_request">100</property>
+                        <property name="height_request">100</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">100</property>
-                        <property name="margin_bottom">50</property>
                         <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="image"/>
-                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="padding">20</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="beer_label_1">
+                        <property name="width_request">100</property>
+                        <property name="height_request">100</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="brewery_name_1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;brewery name&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 18"/>
+                    </attributes>
+                    <style>
+                      <class name="brewery_name"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="brewery_loc_1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;brewery location&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 14"/>
+                    </attributes>
+                    <style>
+                      <class name="brewery_loc"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="beer_description_1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">20</property>
+                    <property name="margin_right">20</property>
+                    <property name="margin_top">50</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="label" translatable="yes">&lt;beer description&gt;</property>
+                    <property name="justify">fill</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 12"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_description"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="tap_num_box_1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_top">20</property>
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkLabel" id="beer_name_1">
+                      <object class="GtkLabel" id="tap_num_1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;beer name&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans Bold 20"/>
-                        </attributes>
-                        <style>
-                          <class name="beer_name"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="beer_style_1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_bottom">20</property>
-                        <property name="label" translatable="yes">&lt;beer style&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 15"/>
-                        </attributes>
-                        <style>
-                          <class name="beer_style"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="brewery_name_1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;brewery name&gt;</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 16"/>
                         </attributes>
                         <style>
-                          <class name="brewery_name"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="brewery_loc_1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;brewery location&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 12"/>
-                        </attributes>
-                        <style>
-                          <class name="brewery_loc"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="tap_num_box_1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_top">20</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkLabel" id="tap_num_1">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <attributes>
-                              <attribute name="font-desc" value="PT Sans Bold 16"/>
-                            </attributes>
-                            <style>
-                              <class name="tap_num"/>
-                            </style>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="pack_type">end</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <style>
-                          <class name="tap_num_box"/>
+                          <class name="tap_num"/>
                         </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="pack_type">end</property>
-                        <property name="position">7</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkProgressBar" id="pct_full_meter_1">
-                        <property name="height_request">30</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <style>
-                          <class name="pct_full_meter"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">8</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="abv_1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;abv&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans Bold 20"/>
-                        </attributes>
-                        <style>
-                          <class name="abv"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">9</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <style>
-                      <class name="tap_display"/>
+                      <class name="tap_num_box"/>
                     </style>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">7</property>
+                  </packing>
                 </child>
-                <child type="label_item">
-                  <placeholder/>
+                <child>
+                  <object class="GtkProgressBar" id="pct_full_meter_1">
+                    <property name="height_request">30</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">10</property>
+                    <property name="margin_right">10</property>
+                    <property name="margin_top">10</property>
+                    <style>
+                      <class name="pct_full_meter"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="abv_1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;abv&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 20"/>
+                    </attributes>
+                    <style>
+                      <class name="abv"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">9</property>
+                  </packing>
                 </child>
                 <style>
-                  <class name="tap_frame"/>
+                  <class name="tap_display"/>
                 </style>
               </object>
               <packing>
@@ -227,191 +264,225 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFrame" id="TapFrame_2">
+              <object class="GtkBox" id="TapDisplay_2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">none</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox" id="TapDisplay_2">
+                  <object class="GtkLabel" id="beer_name_2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
+                    <property name="margin_top">100</property>
+                    <property name="label" translatable="yes">&lt;beer name&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 24"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_name"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="beer_style_2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="label" translatable="yes">&lt;beer style&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 17"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_style"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="labels_2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="margin_top">20</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="spacing">10</property>
                     <child>
-                      <object class="GtkImage" id="image_2">
+                      <object class="GtkImage" id="brewery_label_2">
+                        <property name="width_request">100</property>
+                        <property name="height_request">100</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">100</property>
-                        <property name="margin_bottom">50</property>
                         <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="image"/>
-                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="padding">20</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="beer_label_2">
+                        <property name="width_request">100</property>
+                        <property name="height_request">100</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="brewery_name_2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;brewery name&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 18"/>
+                    </attributes>
+                    <style>
+                      <class name="brewery_name"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="brewery_loc_2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;brewery location&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 14"/>
+                    </attributes>
+                    <style>
+                      <class name="brewery_loc"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="beer_description_2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">20</property>
+                    <property name="margin_right">20</property>
+                    <property name="margin_top">50</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="label" translatable="yes">&lt;beer description&gt;</property>
+                    <property name="justify">fill</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 12"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_description"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="tap_num_box_2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_top">20</property>
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkLabel" id="beer_name_2">
+                      <object class="GtkLabel" id="tap_num_2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;beer name&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans Bold 20"/>
-                        </attributes>
-                        <style>
-                          <class name="beer_name"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="beer_style_2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_bottom">20</property>
-                        <property name="label" translatable="yes">&lt;beer style&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 15"/>
-                        </attributes>
-                        <style>
-                          <class name="beer_style"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="brewery_name_2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;brewery name&gt;</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 16"/>
                         </attributes>
                         <style>
-                          <class name="brewery_name"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="brewery_loc_2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;brewery location&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 12"/>
-                        </attributes>
-                        <style>
-                          <class name="brewery_loc"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="tap_num_box_2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_top">20</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkLabel" id="tap_num_2">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <attributes>
-                              <attribute name="font-desc" value="PT Sans Bold 16"/>
-                            </attributes>
-                            <style>
-                              <class name="tap_num"/>
-                            </style>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="pack_type">end</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <style>
-                          <class name="tap_num_box"/>
+                          <class name="tap_num"/>
                         </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="pack_type">end</property>
-                        <property name="position">7</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkProgressBar" id="pct_full_meter_2">
-                        <property name="height_request">30</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <style>
-                          <class name="pct_full_meter"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">8</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="abv_2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;abv&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans Bold 20"/>
-                        </attributes>
-                        <style>
-                          <class name="abv"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">9</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <style>
-                      <class name="tap_display"/>
+                      <class name="tap_num_box"/>
                     </style>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">7</property>
+                  </packing>
                 </child>
-                <child type="label_item">
-                  <placeholder/>
+                <child>
+                  <object class="GtkProgressBar" id="pct_full_meter_2">
+                    <property name="height_request">30</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">10</property>
+                    <property name="margin_right">10</property>
+                    <property name="margin_top">10</property>
+                    <style>
+                      <class name="pct_full_meter"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="abv_2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;abv&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 20"/>
+                    </attributes>
+                    <style>
+                      <class name="abv"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">9</property>
+                  </packing>
                 </child>
                 <style>
-                  <class name="tap_frame"/>
+                  <class name="tap_display"/>
                 </style>
               </object>
               <packing>
@@ -421,191 +492,225 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFrame" id="TapFrame_3">
+              <object class="GtkBox" id="TapDisplay_3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">none</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox" id="TapDisplay_3">
+                  <object class="GtkLabel" id="beer_name_3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
+                    <property name="margin_top">100</property>
+                    <property name="label" translatable="yes">&lt;beer name&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 24"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_name"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="beer_style_3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="label" translatable="yes">&lt;beer style&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 17"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_style"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="labels_3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="margin_top">20</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="spacing">10</property>
                     <child>
-                      <object class="GtkImage" id="image_3">
+                      <object class="GtkImage" id="brewery_label_3">
+                        <property name="width_request">100</property>
+                        <property name="height_request">100</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">100</property>
-                        <property name="margin_bottom">50</property>
                         <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="image"/>
-                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="padding">20</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="beer_label_3">
+                        <property name="width_request">100</property>
+                        <property name="height_request">100</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="brewery_name_3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;brewery name&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 18"/>
+                    </attributes>
+                    <style>
+                      <class name="brewery_name"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="brewery_loc_3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;brewery location&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 14"/>
+                    </attributes>
+                    <style>
+                      <class name="brewery_loc"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="beer_description_3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">20</property>
+                    <property name="margin_right">20</property>
+                    <property name="margin_top">50</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="label" translatable="yes">&lt;beer description&gt;</property>
+                    <property name="justify">fill</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 12"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_description"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="tap_num_box_3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_top">20</property>
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkLabel" id="beer_name_3">
+                      <object class="GtkLabel" id="tap_num_3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;beer name&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans Bold 20"/>
-                        </attributes>
-                        <style>
-                          <class name="beer_name"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="beer_style_3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_bottom">20</property>
-                        <property name="label" translatable="yes">&lt;beer style&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 15"/>
-                        </attributes>
-                        <style>
-                          <class name="beer_style"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="brewery_name_3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;brewery name&gt;</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 16"/>
                         </attributes>
                         <style>
-                          <class name="brewery_name"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="brewery_loc_3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;brewery location&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 12"/>
-                        </attributes>
-                        <style>
-                          <class name="brewery_loc"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="tap_num_box_3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_top">20</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkLabel" id="tap_num_3">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <attributes>
-                              <attribute name="font-desc" value="PT Sans Bold 16"/>
-                            </attributes>
-                            <style>
-                              <class name="tap_num"/>
-                            </style>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="pack_type">end</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <style>
-                          <class name="tap_num_box"/>
+                          <class name="tap_num"/>
                         </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="pack_type">end</property>
-                        <property name="position">7</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkProgressBar" id="pct_full_meter_3">
-                        <property name="height_request">30</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <style>
-                          <class name="pct_full_meter"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">8</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="abv_3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;abv&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans Bold 20"/>
-                        </attributes>
-                        <style>
-                          <class name="abv"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">9</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <style>
-                      <class name="tap_display"/>
+                      <class name="tap_num_box"/>
                     </style>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">7</property>
+                  </packing>
                 </child>
-                <child type="label_item">
-                  <placeholder/>
+                <child>
+                  <object class="GtkProgressBar" id="pct_full_meter_3">
+                    <property name="height_request">30</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">10</property>
+                    <property name="margin_right">10</property>
+                    <property name="margin_top">10</property>
+                    <style>
+                      <class name="pct_full_meter"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="abv_3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;abv&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 20"/>
+                    </attributes>
+                    <style>
+                      <class name="abv"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">9</property>
+                  </packing>
                 </child>
                 <style>
-                  <class name="tap_frame"/>
+                  <class name="tap_display"/>
                 </style>
               </object>
               <packing>
@@ -615,191 +720,225 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFrame" id="TapFrame_4">
+              <object class="GtkBox" id="TapDisplay_4">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">none</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox" id="TapDisplay_4">
+                  <object class="GtkLabel" id="beer_name_4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
+                    <property name="margin_top">100</property>
+                    <property name="label" translatable="yes">&lt;beer name&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 24"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_name"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="beer_style_4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="label" translatable="yes">&lt;beer style&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 17"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_style"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="labels_4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="margin_top">20</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="spacing">10</property>
                     <child>
-                      <object class="GtkImage" id="image_4">
+                      <object class="GtkImage" id="brewery_label_4">
+                        <property name="width_request">100</property>
+                        <property name="height_request">100</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">100</property>
-                        <property name="margin_bottom">50</property>
                         <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="image"/>
-                        </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="padding">20</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="beer_label_4">
+                        <property name="width_request">100</property>
+                        <property name="height_request">100</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="brewery_name_4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;brewery name&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 18"/>
+                    </attributes>
+                    <style>
+                      <class name="brewery_name"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="brewery_loc_4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;brewery location&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 14"/>
+                    </attributes>
+                    <style>
+                      <class name="brewery_loc"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="beer_description_4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">20</property>
+                    <property name="margin_right">20</property>
+                    <property name="margin_top">50</property>
+                    <property name="margin_bottom">20</property>
+                    <property name="label" translatable="yes">&lt;beer description&gt;</property>
+                    <property name="justify">fill</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans 12"/>
+                    </attributes>
+                    <style>
+                      <class name="beer_description"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="tap_num_box_4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_top">20</property>
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkLabel" id="beer_name_4">
+                      <object class="GtkLabel" id="tap_num_4">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;beer name&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans Bold 20"/>
-                        </attributes>
-                        <style>
-                          <class name="beer_name"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="beer_style_4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_bottom">20</property>
-                        <property name="label" translatable="yes">&lt;beer style&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 15"/>
-                        </attributes>
-                        <style>
-                          <class name="beer_style"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="brewery_name_4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;brewery name&gt;</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 16"/>
                         </attributes>
                         <style>
-                          <class name="brewery_name"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="brewery_loc_4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;brewery location&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 12"/>
-                        </attributes>
-                        <style>
-                          <class name="brewery_loc"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">6</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="tap_num_box_4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_top">20</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkLabel" id="tap_num_4">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <attributes>
-                              <attribute name="font-desc" value="PT Sans Bold 16"/>
-                            </attributes>
-                            <style>
-                              <class name="tap_num"/>
-                            </style>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="pack_type">end</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <style>
-                          <class name="tap_num_box"/>
+                          <class name="tap_num"/>
                         </style>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="pack_type">end</property>
-                        <property name="position">7</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkProgressBar" id="pct_full_meter_4">
-                        <property name="height_request">30</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_left">10</property>
-                        <property name="margin_right">10</property>
-                        <property name="margin_top">10</property>
-                        <style>
-                          <class name="pct_full_meter"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">8</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="abv_4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;abv&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans Bold 20"/>
-                        </attributes>
-                        <style>
-                          <class name="abv"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="pack_type">end</property>
-                        <property name="position">9</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <style>
-                      <class name="tap_display"/>
+                      <class name="tap_num_box"/>
                     </style>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">7</property>
+                  </packing>
                 </child>
-                <child type="label_item">
-                  <placeholder/>
+                <child>
+                  <object class="GtkProgressBar" id="pct_full_meter_4">
+                    <property name="height_request">30</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">10</property>
+                    <property name="margin_right">10</property>
+                    <property name="margin_top">10</property>
+                    <style>
+                      <class name="pct_full_meter"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">8</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="abv_4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;abv&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="PT Sans Bold 20"/>
+                    </attributes>
+                    <style>
+                      <class name="abv"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">9</property>
+                  </packing>
                 </child>
                 <style>
-                  <class name="tap_frame"/>
+                  <class name="tap_display"/>
                 </style>
               </object>
               <packing>

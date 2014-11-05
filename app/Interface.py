@@ -27,6 +27,20 @@ class ObjectContainer(object):
             except AttributeError:
                 pass
 
+    def load_image(self, image, url):
+        try:
+            alloc = image.get_allocation()
+            loader = GdkPixbuf.PixbufLoader()
+            imgreq = requests.get(url)
+            loader.write(imgreq.content)
+            pixbuf = loader.get_pixbuf()
+            pixbuf = pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR)
+            image.set_from_pixbuf(pixbuf)
+        except Exception as e:
+            logging.error(e)
+        finally:
+            loader.close()
+
 
 class TapDisplay(ObjectContainer):
     def __init__(self, tap_id, gtkobj):
@@ -52,20 +66,17 @@ class TapDisplay(ObjectContainer):
             logging.error("Couldn't look up beer ID {}: {}".format(beer_id, e))
             return
 
+        self.beer_description.set_line_wrap(True)
+
         self.beer_name.set_text(beer.beer_name)
         self.beer_style.set_text(beer.beer_style)
+        self.beer_description.set_text(beer.description)
         self.brewery_name.set_text(beer.brewery_name)
         self.brewery_loc.set_text(beer.brewery_loc)
         self.abv.set_text("{}%".format(beer.abv))
 
-        img_size = int(self.gtkobj.get_allocation().width * 0.9)
-        loader = GdkPixbuf.PixbufLoader()
-        imgreq = requests.get(beer.label)
-        loader.write(imgreq.content)
-        pixbuf = loader.get_pixbuf()
-        pixbuf = pixbuf.scale_simple(img_size, img_size, GdkPixbuf.InterpType.BILINEAR)
-        self.image.set_from_pixbuf(pixbuf)
-        loader.close()
+        self.load_image(self.brewery_label, beer.brewery_label)
+        self.load_image(self.beer_label, beer.beer_label)
 
         self.pct_full_meter.set_fraction(tap["pct_full"])
         self.pct_full_meter.set_text("{}%".format(int(tap["pct_full"] * 100)))
@@ -97,20 +108,9 @@ class CheckinDisplay(ObjectContainer):
             return
 
         self.checkin_id = checkin.checkin_id
+        self.load_image(self.avatar, checkin.user_avatar)
 
-        alloc = self.avatar.get_allocation()
-        loader = GdkPixbuf.PixbufLoader()
-        imgreq = requests.get(checkin.user_avatar)
-        loader.write(imgreq.content)
-        pixbuf = loader.get_pixbuf()
-        if pixbuf is not None:
-            pixbuf = pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR)
-            self.avatar.set_from_pixbuf(pixbuf)
-
-        loader.close()
         markup = "<b>{checkin.user_name}</b> is drinking a <b>{checkin.beer.beer_name}</b> by <b>{checkin.beer.brewery_name}</b>\n<i>{checkin.time_since}</i>".format(checkin=checkin)
-        logging.debug(markup)
-
         self.description.set_line_wrap(True)
         self.description.set_markup(markup)
 
