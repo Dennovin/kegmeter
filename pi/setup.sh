@@ -22,6 +22,7 @@ sudo chown kegmeter /data
 
 # Set up autologin/autostart
 sudo update-rc.d lightdm defaults
+sudo update-rc.d lightdm enable
 
 cat | sudo tee /etc/lightdm/lightdm.conf <<EOF
 [LightDM]
