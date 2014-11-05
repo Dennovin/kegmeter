@@ -167,9 +167,6 @@
                     <property name="margin_bottom">20</property>
                     <property name="label" translatable="yes">&lt;beer description&gt;</property>
                     <property name="justify">fill</property>
-                    <attributes>
-                      <attribute name="font-desc" value="PT Sans 12"/>
-                    </attributes>
                     <style>
                       <class name="beer_description"/>
                     </style>
@@ -395,9 +392,6 @@
                     <property name="margin_bottom">20</property>
                     <property name="label" translatable="yes">&lt;beer description&gt;</property>
                     <property name="justify">fill</property>
-                    <attributes>
-                      <attribute name="font-desc" value="PT Sans 12"/>
-                    </attributes>
                     <style>
                       <class name="beer_description"/>
                     </style>
@@ -623,9 +617,6 @@
                     <property name="margin_bottom">20</property>
                     <property name="label" translatable="yes">&lt;beer description&gt;</property>
                     <property name="justify">fill</property>
-                    <attributes>
-                      <attribute name="font-desc" value="PT Sans 12"/>
-                    </attributes>
                     <style>
                       <class name="beer_description"/>
                     </style>
@@ -851,9 +842,6 @@
                     <property name="margin_bottom">20</property>
                     <property name="label" translatable="yes">&lt;beer description&gt;</property>
                     <property name="justify">fill</property>
-                    <attributes>
-                      <attribute name="font-desc" value="PT Sans 12"/>
-                    </attributes>
                     <style>
                       <class name="beer_description"/>
                     </style>

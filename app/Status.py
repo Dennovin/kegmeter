@@ -48,8 +48,8 @@ class KegmeterStatus(object):
     def cleanup_taps(self):
         for tap in self.tap_statuses.values():
             if tap.is_done():
-                self.tap_update_event.set()
                 tap.clear()
+                self.tap_update_event.set()
 
     def get_active_tap(self):
         for tap in self.tap_statuses.values():

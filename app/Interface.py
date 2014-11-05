@@ -48,11 +48,19 @@ class TapDisplay(ObjectContainer):
 
         self.tap_id = tap_id
         self.gtkobj = gtkobj
+        self.beer = None
         self.beer_id = None
+        self.amount_poured = None
         self.active = False
 
         self.find_children()
         self.tap_num.set_text(str(tap_id))
+
+    def set_description(self):
+        if self.active:
+            self.beer_description.set_markup("<b>{:.2f}</b> ounces poured".format(self.amount_poured))
+        elif self.beer is not None:
+            self.beer_description.set_text(self.beer.description)
 
     def update(self, tap):
         self.make_inactive()
@@ -63,14 +71,15 @@ class TapDisplay(ObjectContainer):
         try:
             beer = Beer.new_from_id(tap["beer_id"])
         except Exception as e:
-            logging.error("Couldn't look up beer ID {}: {}".format(beer_id, e))
+            logging.error("Couldn't look up beer ID {}: {}".format(tap["beer_id"], e))
             return
+
+        self.beer = beer
 
         self.beer_description.set_line_wrap(True)
 
         self.beer_name.set_text(beer.beer_name)
         self.beer_style.set_text(beer.beer_style)
-        self.beer_description.set_text(beer.description)
         self.brewery_name.set_text(beer.brewery_name)
         self.brewery_loc.set_text(beer.brewery_loc)
         self.abv.set_text("{}%".format(beer.abv))
@@ -81,17 +90,29 @@ class TapDisplay(ObjectContainer):
         self.pct_full_meter.set_fraction(tap["pct_full"])
         self.pct_full_meter.set_text("{}%".format(int(tap["pct_full"] * 100)))
 
-    def make_active(self):
+        self.set_description()
+
+    def update_active_tap(self, tap):
+        self.amount_poured = tap.pulses * Config.get("units_per_pulse")
+
         if self.active:
+            self.set_description()
             return
 
-        self.get_style_context().add_class("active")
+        logging.debug("making tap {} active".format(self.tap_id))
+        self.active = True
+        self.set_description()
+        self.gtkobj.get_style_context().add_class("active")
 
     def make_inactive(self):
         if not self.active:
             return
 
-        self.get_style_context().remove_class("active")
+        logging.debug("making tap {} inactive".format(self.tap_id))
+        self.active = False
+        self.amount_poured = None
+        self.set_description()
+        self.gtkobj.get_style_context().remove_class("active")
 
 
 class CheckinDisplay(ObjectContainer):
@@ -128,6 +149,8 @@ class KegMeter(object):
         self.style_provider.load_from_path(os.path.join(Config.base_dir(), "app", "interface.css"))
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), self.style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
+        self.tap_container = self.builder.get_object("TapDisplays")
+
         self.taps = dict()
         for tap in DB.get_taps():
             gtkobj = self.builder.get_object("TapDisplay_{}".format(tap["tap_id"]))
@@ -152,9 +175,11 @@ class KegMeter(object):
 
         active_tap = self.kegmeter_status.get_active_tap()
         if active_tap is not None:
-            self.taps[active_tap.tap_id].make_active()
+            self.tap_container.get_style_context().add_class("has_active")
+            self.taps[active_tap.tap_id].update_active_tap(active_tap)
             return True
 
+        self.tap_container.get_style_context().remove_class("has_active")
         for tap in DB.get_taps():
              self.taps[tap["tap_id"]].update(tap)
 

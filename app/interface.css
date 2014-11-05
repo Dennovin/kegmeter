@@ -5,6 +5,8 @@
 
 #OnTap GtkLabel {
     font-family: "PT Sans";
+    color: #000;
+    transition: 500ms ease-in-out;
 }
 
 #OnTap .title {
@@ -16,10 +18,35 @@
     margin: 0;
     padding: 0 0 10px 0;
     border: 1px solid black;
+    background-image: none;
+}
+
+#OnTap .has_active .tap_display GtkLabel {
+    color: #aaa;
+    transition: 500ms ease-in-out;
+}
+
+#OnTap .has_active .tap_display.active GtkLabel {
+    color: #000;
+}
+
+#OnTap .tap_display.active .tap_num {
+    background-color: #ff0;
+    transition: 500ms ease-in-out;
 }
 
 #OnTap .tap_num {
     background-color: #aaa;
+    transition: 500ms ease-in-out;
+}
+
+#OnTap .tap_display .beer_description {
+    font-size: 9pt;
+    transition: none;
+}
+
+#OnTap .tap_display.active .beer_description {
+    font-size: 24pt;
 }
 
 #OnTap .checkin {
