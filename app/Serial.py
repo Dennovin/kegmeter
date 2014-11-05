@@ -24,7 +24,7 @@ class SerialListener(object):
                 logging.info("Found device on port {}".format(dev))
                 self.port = serial.Serial(dev, 38400, timeout=5)
 
-        if self.port is None:
+        if not hasattr(self, "port"):
             logging.error("Couldn't find device.")
             raise IOError()
 

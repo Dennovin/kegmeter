@@ -47,10 +47,14 @@ def run_app():
         interface_thread.start()
 
     if not args.no_serial:
-        listener = SerialListener(status)
-        listener_thread = threading.Thread(target=listener.listen)
-        listener_thread.daemon = True
-        listener_thread.start()
+        try:
+            listener = SerialListener(status)
+            listener_thread = threading.Thread(target=listener.listen)
+            listener_thread.daemon = True
+            listener_thread.start()
+        except IOError:
+            logging.error("Couldn't find serial device. Skipping.")
+            args.no_serial = True
 
     if not args.no_web:
         webserver = WebServer(status)
