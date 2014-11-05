@@ -1,6 +1,7 @@
 {
   "untappd_api_id":       "",
   "untappd_api_secret":   "",
+  "untappd_venue_id":     0,
   "units_per_pulse":      0.07608,
   "total_keg_units":      640,
   "hardware_id":          "16c0:0483",

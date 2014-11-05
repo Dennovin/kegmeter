@@ -65,10 +65,10 @@ class Beer(object):
     def new_from_id(cls, beer_id):
         endpoint = "/v4/beer/info/{}".format(beer_id)
 
-        data = cls.memcache.get(beer_id.encode("utf-8"))
+        data = cls.memcache.get(str(beer_id))
         if data is None:
             data = Untappd.api_request(endpoint)
-            cls.memcache.set(beer_id.encode("utf-8"), data, 60 * 60 * 24)
+            cls.memcache.set(str(beer_id), data, 60 * 60 * 24)
 
         beer = data["response"]["beer"]
 
@@ -85,3 +85,35 @@ class Beer(object):
             beers.append(cls.new_from_api_response(beer=item["beer"], brewery=item["brewery"]))
 
         return beers
+
+
+class Checkin(object):
+    @property
+    def beer(self):
+        if not hasattr(self, "_beer"):
+            self._beer = Beer.new_from_id(self.beer_id)
+
+        return self._beer
+
+    @classmethod
+    def new_from_api_response(cls, response):
+        obj = cls()
+
+        obj.user_name = response["user"]["first_name"]
+        obj.user_avatar = response["user"]["user_avatar"]
+        obj.created_at = response["created_at"]
+        obj.comment = response["checkin_comment"]
+        obj.beer_id = response["beer"]["bid"]
+
+        return obj
+
+    @classmethod
+    def get_latest(cls):
+        endpoint = "/v4/venue/checkins/{}".format(Config.get("untappd_venue_id"))
+        data = Untappd.api_request(endpoint)
+
+        checkins = []
+        for item in data["response"]["checkins"]["items"]:
+            checkins.append(cls.new_from_api_response(item))
+
+        return checkins
