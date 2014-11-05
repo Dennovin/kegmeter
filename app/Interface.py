@@ -92,8 +92,10 @@ class CheckinDisplay(object):
         imgreq = requests.get(checkin.user_avatar)
         loader.write(imgreq.content)
         pixbuf = loader.get_pixbuf()
-        pixbuf = pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR)
-        self.avatar.set_from_pixbuf(pixbuf)
+        if pixbuf is not None:
+            pixbuf = pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR)
+            self.avatar.set_from_pixbuf(pixbuf)
+
         loader.close()
 
         self.description.set_markup("""<b>{checkin.user_name}</b> is drinking a <b>{checkin.beer.beer_name}</b> by <b>{checkin.beer.brewery_name}</b>\n<i>{checkin.created_at}</i>""".format(checkin=checkin))
