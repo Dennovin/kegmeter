@@ -1,3 +1,5 @@
+import ago
+from datetime import datetime
 import memcache
 import requests
 import simplejson
@@ -94,6 +96,16 @@ class Checkin(object):
             self._beer = Beer.new_from_id(self.beer_id)
 
         return self._beer
+
+    @property
+    def time_since(self):
+        try:
+            delta = datetime.now() - datetime.strptime(self.created_at, "%a, %d %b %Y %H:%M:%S +0000")
+            return ago.human(delta, precision=2)
+        except AttributeError as e:
+            return ""
+        except:
+            raise
 
     @classmethod
     def new_from_api_response(cls, response):

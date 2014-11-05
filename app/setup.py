@@ -8,6 +8,7 @@ setup(
     license="MIT",
     packages=find_packages(),
     install_requires=[
+        "ago >= 0.0.6",
         "oauth2client >= 1.3.1",
         "pygobject >= 3.8.2",
         "pyserial >= 2.7",
