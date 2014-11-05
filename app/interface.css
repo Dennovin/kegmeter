@@ -7,11 +7,20 @@
     font-family: "PT Sans";
 }
 
-#OnTap .tap_display {
-    border-right-color: #000;
-    border-right-width: 1px;
+#OnTap .tap_frame {
+    margin: 0;
+    padding: 0 0 10px 0;
 }
 
 #OnTap .tap_num {
     background-color: #aaa;
 }
+
+#OnTap .checkin {
+    background-color: #eee;
+    border-color: #000;
+    border-radius: 2px;
+    border-width: 1px;
+    border-style: solid;
+}
+

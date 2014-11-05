@@ -12,7 +12,23 @@ from Untappd import Beer, Checkin
 mysterybeer_file = os.path.join(Config.base_dir(), "images", "mysterybeer.png")
 
 
-class TapDisplay(object):
+class ObjectContainer(object):
+    def find_children(self, gtkobj=None):
+        if gtkobj is None:
+            gtkobj = self.gtkobj
+
+        for child in gtkobj.get_children():
+            m = re.match("^(.*)_\d$", Gtk.Buildable.get_name(child))
+            if m:
+                setattr(self, m.group(1).lower(), child)
+
+            try:
+                self.find_children(child)
+            except AttributeError:
+                pass
+
+
+class TapDisplay(ObjectContainer):
     def __init__(self, tap_id, gtkobj):
         super(TapDisplay, self).__init__()
 
@@ -21,10 +37,8 @@ class TapDisplay(object):
         self.beer_id = None
         self.active = False
 
-        for child in self.gtkobj.get_children():
-            m = re.match("^(.*)_\d$", Gtk.Buildable.get_name(child))
-            if m:
-                setattr(self, m.group(1), child)
+        self.find_children()
+        self.tap_num.set_text(str(tap_id))
 
     def update(self, tap):
         self.make_inactive()
@@ -69,17 +83,14 @@ class TapDisplay(object):
         self.get_style_context().remove_class("active")
 
 
-class CheckinDisplay(object):
+class CheckinDisplay(ObjectContainer):
     def __init__(self, gtkobj):
         super(CheckinDisplay, self).__init__()
 
         self.checkin_id = None
         self.gtkobj = gtkobj
 
-        for child in self.gtkobj.get_children():
-            m = re.match("^(.*)_\d$", Gtk.Buildable.get_name(child))
-            if m:
-                setattr(self, m.group(1), child)
+        self.find_children()
 
     def update(self, checkin):
         if checkin.checkin_id == self.checkin_id:
@@ -97,8 +108,11 @@ class CheckinDisplay(object):
             self.avatar.set_from_pixbuf(pixbuf)
 
         loader.close()
+        markup = "<b>{checkin.user_name}</b> is drinking a <b>{checkin.beer.beer_name}</b> by <b>{checkin.beer.brewery_name}</b>\n<i>{checkin.time_since}</i>".format(checkin=checkin)
+        logging.debug(markup)
 
-        self.description.set_markup("""<b>{checkin.user_name}</b> is drinking a <b>{checkin.beer.beer_name}</b> by <b>{checkin.beer.brewery_name}</b>\n<i>{checkin.created_at}</i>""".format(checkin=checkin))
+        self.description.set_line_wrap(True)
+        self.description.set_markup(markup)
 
 
 class KegMeter(object):
