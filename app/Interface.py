@@ -30,8 +30,9 @@ class ObjectContainer(object):
     def load_image(self, image, url):
         try:
             alloc = image.get_allocation()
-            loader = GdkPixbuf.PixbufLoader()
             imgreq = requests.get(url)
+            loader = GdkPixbuf.PixbufLoader.new_with_mime_type(imgreq.headers["content-type"])
+            logging.debug(imgreq)
             loader.write(imgreq.content)
             pixbuf = loader.get_pixbuf()
             pixbuf = pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR)
@@ -131,7 +132,7 @@ class CheckinDisplay(ObjectContainer):
         self.checkin_id = checkin.checkin_id
         self.load_image(self.avatar, checkin.user_avatar)
 
-        markup = "<b>{checkin.user_name}</b> is drinking a <b>{checkin.beer.beer_name}</b> by <b>{checkin.beer.brewery_name}</b>\n<i>{checkin.time_since}</i>".format(checkin=checkin)
+        markup = "<b>{checkin.user_name}</b> enjoyed a <b>{checkin.beer.beer_name}</b> by <b>{checkin.beer.brewery_name}</b>\n<i>{checkin.time_since}</i>".format(checkin=checkin)
         self.description.set_line_wrap(True)
         self.description.set_markup(markup)
 
