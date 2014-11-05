@@ -1,5 +1,6 @@
 import memcache
 import requests
+import simplejson
 import urlparse
 
 from Config import Config
@@ -24,15 +25,25 @@ class Untappd(object):
 class Beer(object):
     memcache = memcache.Client(["127.0.0.1:11211"])
 
-    @classmethod
-    def new_from_id(cls, beer_id):
-        obj = cls.memcache.get(beer_id.encode("utf-8"))
-        if obj:
-            return obj
+    def to_dict(self):
+        return {
+            "beer_id": self.beer_id,
+            "beer_name": self.beer_name,
+            "beer_style": self.beer_style,
+            "label": self.label,
+            "description": self.description,
+            "abv": self.abv,
+            "brewery_name": self.brewery_name,
+            "brewery_loc": self.brewery_loc,
+            }
 
-        endpoint = "/v4/beer/info/{}".format(beer_id)
-        data = Untappd.api_request(endpoint)
-        beer = data["response"]["beer"]
+    def to_json(self):
+        return simplejson.dumps(self.to_dict())
+
+    @classmethod
+    def new_from_api_response(cls, beer, brewery=None):
+        if brewery is None and "brewery" in beer:
+            brewery = beer["brewery"]
 
         obj = cls()
         obj.beer_id = beer["bid"]
@@ -41,12 +52,36 @@ class Beer(object):
         obj.label = beer["beer_label"]
         obj.description = beer["beer_description"]
         obj.abv = beer["beer_abv"]
-        obj.brewery_name = beer["brewery"]["brewery_name"]
+        obj.brewery_name = brewery["brewery_name"]
         obj.brewery_loc = "{}, {}, {}".format(
-            beer["brewery"]["location"]["brewery_city"],
-            beer["brewery"]["location"]["brewery_state"],
-            beer["brewery"]["country_name"],
+            brewery["location"]["brewery_city"],
+            brewery["location"]["brewery_state"],
+            brewery["country_name"],
             )
 
-        cls.memcache.set(beer_id.encode("utf-8"), obj, 60 * 60 * 24)
         return obj
+
+    @classmethod
+    def new_from_id(cls, beer_id):
+        endpoint = "/v4/beer/info/{}".format(beer_id)
+
+        data = cls.memcache.get(beer_id.encode("utf-8"))
+        if data is None:
+            data = Untappd.api_request(endpoint)
+            cls.memcache.set(beer_id.encode("utf-8"), data, 60 * 60 * 24)
+
+        beer = data["response"]["beer"]
+
+        obj = cls.new_from_api_response(beer)
+        return obj
+
+    @classmethod
+    def search(cls, search_string):
+        endpoint = "/v4/search/beer"
+        data = Untappd.api_request(endpoint, {"q": search_string})
+        beers = []
+
+        for item in data["response"]["beers"]["items"]:
+            beers.append(cls.new_from_api_response(beer=item["beer"], brewery=item["brewery"]))
+
+        return beers

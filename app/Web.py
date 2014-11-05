@@ -1,5 +1,4 @@
 import logging
-import memcache
 import oauth2client.client
 import os
 import simplejson
@@ -9,6 +8,7 @@ import tornado.web
 
 from Config import Config
 from DB import DB
+from Untappd import Beer
 
 template_dir = os.path.join(Config.base_dir(), "web", "templates")
 static_dir = os.path.join(Config.base_dir(), "web", "static")
@@ -32,27 +32,16 @@ class JsonHandler(tornado.web.RequestHandler):
         self.write(simplejson.dumps(DB.get_taps()))
 
 
-class ApiHandler(tornado.web.RequestHandler):
-    def initialize(self):
-        self.memcache = memcache.Client(["127.0.0.1:11211"])
-        self.http = tornado.httpclient.AsyncHTTPClient()
+class APIBeerDetails(tornado.web.RequestHandler):
+    def get(self, beer_id):
+        beer = Beer.new_from_id(beer_id)
+        self.write(beer.to_json())
 
-    @tornado.web.asynchronous
-    def get(self, url_part):
-        self.url = Config.get("brewerydb_url") + self.request.uri.replace("/brewerydb", "")
-        self.url = tornado.httputil.url_concat(self.url, {"key": Config.get("brewerydb_api_key")})
 
-        response = self.memcache.get(self.url)
-        if response is None:
-            self.http.fetch(self.url, self.print_response)
-        else:
-            self.write(response)
-            self.finish()
-
-    def print_response(self, response):
-        self.memcache.set(self.url, response.body, 60 * 60 * 24)
-        self.write(response.body)
-        self.finish()
+class APISearch(tornado.web.RequestHandler):
+    def get(self):
+        results = Beer.search(self.get_argument("q"))
+        self.write(simplejson.dumps([i.to_dict() for i in results]))
 
 
 class AuthHandler(tornado.web.RequestHandler, tornado.auth.GoogleOAuth2Mixin):
@@ -66,7 +55,7 @@ class AuthHandler(tornado.web.RequestHandler, tornado.auth.GoogleOAuth2Mixin):
 
             jwt = oauth2client.client.verify_id_token(user["id_token"], Config.get("google_oauth_key"))
 
-            if jwt and jwt["email"] and jwt["email"].endswith("@omniti.com"):
+            if jwt and jwt["email"] and jwt["email"].endswith("@" + Config.get("admin_email_domain")):
                 self.set_secure_cookie("email", jwt["email"])
                 self.redirect("/admin")
             else:
@@ -97,11 +86,11 @@ class AdminHandler(tornado.web.RequestHandler):
             tap_id = self.get_argument("tap_id");
             beer_id = self.get_argument("beer_id");
 
-            cursor = self.db.cursor()
+            cursor = db.cursor()
             cursor.execute("update taps set beer_id = ?, last_updated = strftime('%s', 'now'), last_updated_by = ? where tap_id = ?", [beer_id, user, tap_id])
             cursor.close()
 
-            self.db.commit()
+            db.commit()
 
             self.write(simplejson.dumps({"tap_id": tap_id, "beer_id": beer_id}))
 
@@ -125,7 +114,8 @@ class WebServer(object):
                 (r"/", IndexHandler),
                 (r"/(favicon.ico)", tornado.web.StaticFileHandler, {"path": static_dir}),
                 (r"/json", JsonHandler),
-                (r"/brewerydb/(.*)", ApiHandler),
+                (r"/api/beer/(.*)", APIBeerDetails),
+                (r"/api/search", APISearch),
                 (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": static_dir}),
                 (r"/auth", AuthHandler),
                 (r"/admin/(.*)", AdminHandler),

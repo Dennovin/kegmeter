@@ -8,10 +8,7 @@ function get_taps(callback) {
 
 function lookup_tap(beer_id, callback) {
     $.ajax({
-        "url": "/brewerydb/beer/" + beer_id,
-        "data": {
-            "withBreweries": "Y"
-        },
+        "url": "/api/beer/" + beer_id,
         "dataType": "json",
         "success": callback
     });
@@ -19,10 +16,9 @@ function lookup_tap(beer_id, callback) {
 
 function get_matching_beers(name, callback) {
     $.ajax({
-        "url": "/brewerydb/search?type=beer",
+        "url": "/api/search",
         "data": {
             "q": name,
-            "withBreweries": "Y"
         },
         "dataType": "json",
         "success": callback

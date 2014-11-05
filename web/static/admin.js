@@ -8,10 +8,9 @@ function hide_search_boxes() {
 
 function update_row($row) {
     lookup_tap($row.attr("beer_id"), function(response) {
-        data = response.data;
-        if(data) {
-            $row = $(".input-row[beer_id=" + data["id"] + "]");
-            $row.find(".currentname").text(data["name"]).removeClass("empty");
+        if(response) {
+            $row = $(".input-row[beer_id=" + response["beer_id"] + "]");
+            $row.find(".currentname").text(response["beer_name"]).removeClass("empty");
         }
     });
 }
@@ -52,47 +51,30 @@ function search(elem) {
     }
 
     get_matching_beers($(elem).val(), function(response) {
-        var data = response.data;
         var $list = $(".options:visible");
         $list.empty();
 
-        if(!data) {
+        if(!response) {
             var $entry = $("<li />");
             $entry.addClass("no-results").text("No matching beers found.").appendTo($list);
             return;
         }
 
-        data.sort(function(a, b) {
-            if(a["breweries"] && b["breweries"]) {
-                return a["breweries"][0]["name"].localeCompare(b["breweries"][0]["name"]);
-            }
-
-            if(a["breweries"]) {
-                return 1;
-            }
-
-            if(b["breweries"]) {
-                return -1;
-            }
-
-            return a["name"].localeCompare(b["name"]);
-        });
-
-        for(k in data) {
+        for(k in response) {
             var $entry = $("<li />")
-                .attr("beer_id", data[k]["id"])
+                .attr("beer_id", response[k]["beer_id"])
                 .click(update_db)
                 .addClass("option");
 
             var $name = $("<span />")
                 .addClass("name")
-                .text(data[k]["name"])
+                .text(response[k]["beer_name"])
                 .appendTo($entry);
 
-            if(data[k]["breweries"]) {
+            if(response[k]["brewery_name"]) {
                 var $brewery = $("<span />")
                     .addClass("brewery")
-                    .text(data[k]["breweries"][0]["name"])
+                    .text(response[k]["brewery_name"])
                     .appendTo($entry);
             }
 

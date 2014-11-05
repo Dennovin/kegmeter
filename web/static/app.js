@@ -17,27 +17,18 @@ function check_current() {
             if($tap.attr("beer_id") != data[k]["beer_id"]) {
                 $tap.attr("beer_id", data[k]["beer_id"]);
                 lookup_tap(data[k]["beer_id"], function(response) {
-                    console.log(response);
-                    data = response.data;
-                    if(data) {
-                        loc = data["breweries"][0]["locations"][0];
-                        $tap = $(".tap[beer_id=" + data["id"] + "]");
-                        $tap.find(".name").text(data["name"]);
-                        $tap.find(".brewery").text(data["breweries"][0]["name"]);
-                        $tap.find(".location").text(loc["locality"] + ", " + loc["region"] + ", " + loc["country"]["isoThree"]);
-                        $tap.find(".style").text(data["style"]["name"]);
-                        $tap.find(".abv").text(data["abv"] + "%");
-                        $tap.find(".description").text(data["description"]);
-                        $tap.find(".brewerydescription").text(data["breweries"][0]["description"]);
-
-                        if(data["labels"]) {
-                            img_url = data["labels"]["large"];
-                        } else {
-                            img_url = "/static/mysterybeer.png";
-                        }
-
-                        $tap.find(".beerimg").attr("src", img_url);
+                    if(!response) {
+                        return;
                     }
+
+                    $tap = $(".tap[beer_id=" + response["beer_id"] + "]");
+                    $tap.find(".name").text(response["beer_name"]);
+                    $tap.find(".brewery").text(response["brewery_name"]);
+                    $tap.find(".location").text(response["brewery_loc"]);
+                    $tap.find(".style").text(response["beer_style"]);
+                    $tap.find(".abv").text(response["abv"] + "%");
+                    $tap.find(".description").text(response["description"]);
+                    $tap.find(".beerimg").attr("src", response["label"]);
                 });
             }
         }
