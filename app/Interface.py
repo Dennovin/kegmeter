@@ -7,7 +7,7 @@ from gi.repository import Gtk, Gdk, GdkPixbuf, GObject
 
 from Config import Config
 from DB import DB
-from Untappd import Beer
+from Untappd import Beer, Checkin
 
 mysterybeer_file = os.path.join(Config.base_dir(), "images", "mysterybeer.png")
 
@@ -45,13 +45,9 @@ class TapDisplay(object):
         self.abv.set_text("{}%".format(beer.abv))
 
         img_size = int(self.gtkobj.get_allocation().width * 0.9)
-        logging.debug("allocation: {}".format(self.gtkobj.get_allocation().width))
         loader = GdkPixbuf.PixbufLoader()
-
-        img_url = beer.label
-        imgreq = requests.get(img_url)
+        imgreq = requests.get(beer.label)
         loader.write(imgreq.content)
-
         pixbuf = loader.get_pixbuf()
         pixbuf = pixbuf.scale_simple(img_size, img_size, GdkPixbuf.InterpType.BILINEAR)
         self.image.set_from_pixbuf(pixbuf)
@@ -73,6 +69,36 @@ class TapDisplay(object):
         self.get_style_context().remove_class("active")
 
 
+class CheckinDisplay(object):
+    def __init__(self, gtkobj):
+        super(CheckinDisplay, self).__init__()
+
+        self.checkin_id = None
+        self.gtkobj = gtkobj
+
+        for child in self.gtkobj.get_children():
+            m = re.match("^(.*)_\d$", Gtk.Buildable.get_name(child))
+            if m:
+                setattr(self, m.group(1), child)
+
+    def update(self, checkin):
+        if checkin.checkin_id == self.checkin_id:
+            return
+
+        self.checkin_id = checkin.checkin_id
+
+        alloc = self.avatar.get_allocation()
+        loader = GdkPixbuf.PixbufLoader()
+        imgreq = requests.get(checkin.user_avatar)
+        loader.write(imgreq.content)
+        pixbuf = loader.get_pixbuf()
+        pixbuf = pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR)
+        self.avatar.set_from_pixbuf(pixbuf)
+        loader.close()
+
+        self.description.set_markup("""<b>{checkin.user_name}</b> is drinking a <b>{checkin.beer.beer_name}</b> by <b>{checkin.beer.brewery_name}</b>\n<i>{checkin.created_at}</i>""".format(checkin=checkin))
+
+
 class KegMeter(object):
     def __init__(self, kegmeter_status):
         self.kegmeter_status = kegmeter_status
@@ -91,10 +117,14 @@ class KegMeter(object):
             gtkobj = self.builder.get_object("TapDisplay_{}".format(tap["tap_id"]))
             self.taps[tap["tap_id"]] = TapDisplay(tap["tap_id"], gtkobj)
 
+        self.checkin_displays = []
+        for child in self.builder.get_object("UntappdBoxes").get_children():
+            self.checkin_displays.append(CheckinDisplay(child))
+
         self.window.fullscreen()
         self.window.show_all()
 
-    def update(self):
+    def update_taps(self):
         if self.kegmeter_status.interrupt_event.is_set():
             self.shutdown()
             return False
@@ -114,10 +144,19 @@ class KegMeter(object):
 
         return True
 
+    def update_checkins(self):
+        checkins = Checkin.get_latest()
+        for checkin, display in zip(checkins, self.checkin_displays):
+            display.update(checkin)
+
     def main(self):
         Gdk.threads_init()
 
-        GObject.idle_add(self.update)
+        GObject.idle_add(self.update_taps)
+        GObject.timeout_add(60000, self.update_checkins)
+
+        self.update_checkins()
+
         Gtk.main()
 
     def shutdown(self):

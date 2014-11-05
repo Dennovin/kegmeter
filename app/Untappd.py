@@ -99,6 +99,7 @@ class Checkin(object):
     def new_from_api_response(cls, response):
         obj = cls()
 
+        obj.checkin_id = response["checkin_id"]
         obj.user_name = response["user"]["first_name"]
         obj.user_avatar = response["user"]["user_avatar"]
         obj.created_at = response["created_at"]
