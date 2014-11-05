@@ -39,7 +39,7 @@ session-wrapper=/etc/X11/Xsession
 EOF
 
 sudo -u kegmeter mkdir -p /home/kegmeter/.config/autostart
-cat | sudo -u kegmeter tee /home/kegmeter/.config/autostart/kegmeter <<EOF
+cat | sudo -u kegmeter tee /home/kegmeter/.config/autostart/kegmeter.desktop <<EOF
 [Desktop Entry]
 Type=Application
 Exec=/data/kegmeter/app/app.py
