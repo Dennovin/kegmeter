@@ -1,59 +1,73 @@
 #OnTap {
-    background-color: #fff;
+    background: white;
     padding: 0;
 }
 
 #OnTap GtkLabel {
     font-family: "PT Sans";
-    color: #000;
+    color: black;
     transition: 500ms ease-in-out;
 }
 
 #OnTap .title {
     background-color: #ccc;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid black;
+    box-shadow: 0 3px 2px alpha(black, 0.5);
+    margin-bottom: 5px;
 }
 
-#OnTap .tap_display {
-    margin: 0;
+#OnTap .tap_display_box {
+    background-image: -gtk-gradient(linear, left top, left bottom, from(#fff), to(#fff));
+    border-width: 0 1px;
+    border-style: inset;
+    border-color: black;
+    border-image: none;
     padding: 0 0 10px 0;
-    border: 1px solid black;
-    background-image: none;
+    transition: 500ms ease-in-out;
 }
 
-#OnTap .has_active .tap_display GtkLabel {
+#OnTap .tap_display_box.active {
+    background-image: -gtk-gradient(linear, left top, left bottom, from(#ff6), to(#dd4));
+    transition: 500ms ease-in-out;
+}
+
+#OnTap .has_active .tap_display_box GtkLabel {
     color: #aaa;
     transition: 500ms ease-in-out;
 }
 
-#OnTap .has_active .tap_display.active GtkLabel {
-    color: #000;
+#OnTap .has_active .tap_display_box.active GtkLabel {
+    color: black;
 }
 
-#OnTap .tap_display.active .tap_num {
-    background-color: #ff0;
+#OnTap .tap_display_box.active .tap_num {
+    background-color: #dd4;
     transition: 500ms ease-in-out;
 }
 
 #OnTap .tap_num {
-    background-color: #aaa;
+    background-color: #ccc;
     transition: 500ms ease-in-out;
 }
 
-#OnTap .tap_display .beer_description {
+#OnTap .tap_display_box .beer_description {
     font-size: 9pt;
     transition: none;
 }
 
-#OnTap .tap_display.active .beer_description {
+#OnTap .tap_display_box.active .beer_description {
     font-size: 24pt;
 }
 
 #OnTap .checkin {
-    background-color: #eee;
-    border-color: #000;
+    background-image: -gtk-gradient(linear, left top, left bottom, from(#ddd), to(#bbb));
+    border-color: black;
     border-radius: 2px;
     border-width: 1px;
     border-style: solid;
+    margin: 5px;
+    padding: 5px;
+    box-shadow: 3px 3px 2px alpha(black, 0.2);
 }
+
 

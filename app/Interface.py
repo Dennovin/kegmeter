@@ -154,7 +154,7 @@ class KegMeter(object):
 
         self.taps = dict()
         for tap in DB.get_taps():
-            gtkobj = self.builder.get_object("TapDisplay_{}".format(tap["tap_id"]))
+            gtkobj = self.builder.get_object("TapEventBox_{}".format(tap["tap_id"]))
             self.taps[tap["tap_id"]] = TapDisplay(tap["tap_id"], gtkobj)
 
         self.checkin_displays = []
