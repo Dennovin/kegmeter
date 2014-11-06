@@ -946,68 +946,326 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="UntappdBoxes">
+          <object class="GtkBox" id="BottomBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">5</property>
-            <property name="margin_right">5</property>
-            <property name="margin_top">5</property>
-            <property name="margin_bottom">5</property>
-            <property name="spacing">5</property>
-            <property name="homogeneous">True</property>
             <child>
-              <object class="GtkFrame" id="UntappdFrame_1">
+              <object class="GtkBox" id="UntappdBoxes">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">out</property>
+                <property name="margin_left">5</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
+                <property name="spacing">5</property>
+                <property name="homogeneous">True</property>
                 <child>
-                  <object class="GtkBox" id="UntappdBox_1">
+                  <object class="GtkFrame" id="UntappdFrame_1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="label_yalign">0</property>
+                    <property name="shadow_type">out</property>
                     <child>
-                      <object class="GtkImage" id="avatar_1">
-                        <property name="width_request">100</property>
-                        <property name="height_request">100</property>
+                      <object class="GtkBox" id="UntappdBox_1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="avatar"/>
-                        </style>
+                        <child>
+                          <object class="GtkImage" id="avatar_1">
+                            <property name="width_request">100</property>
+                            <property name="height_request">100</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="stock">gtk-missing-image</property>
+                            <style>
+                              <class name="avatar"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="description_1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;check-in description&gt;</property>
+                            <attributes>
+                              <attribute name="font-desc" value="PT Sans 11"/>
+                            </attributes>
+                            <style>
+                              <class name="checkin_description"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
                     </child>
-                    <child>
-                      <object class="GtkLabel" id="description_1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;check-in description&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 11"/>
-                        </attributes>
-                        <style>
-                          <class name="checkin_description"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
+                    <child type="label_item">
+                      <placeholder/>
                     </child>
+                    <style>
+                      <class name="checkin"/>
+                    </style>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
-                <child type="label_item">
-                  <placeholder/>
+                <child>
+                  <object class="GtkFrame" id="UntappdFrame_2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="label_yalign">0</property>
+                    <property name="shadow_type">out</property>
+                    <child>
+                      <object class="GtkBox" id="UntappdBox_2">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkImage" id="avatar_2">
+                            <property name="width_request">100</property>
+                            <property name="height_request">100</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="stock">gtk-missing-image</property>
+                            <style>
+                              <class name="avatar"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="description_2">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;check-in description&gt;</property>
+                            <attributes>
+                              <attribute name="font-desc" value="PT Sans 11"/>
+                            </attributes>
+                            <style>
+                              <class name="checkin_description"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label_item">
+                      <placeholder/>
+                    </child>
+                    <style>
+                      <class name="checkin"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="UntappdFrame_3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="label_yalign">0</property>
+                    <property name="shadow_type">out</property>
+                    <child>
+                      <object class="GtkBox" id="UntappdBox_3">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkImage" id="avatar_3">
+                            <property name="width_request">100</property>
+                            <property name="height_request">100</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="stock">gtk-missing-image</property>
+                            <style>
+                              <class name="avatar"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="description_3">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;check-in description&gt;</property>
+                            <attributes>
+                              <attribute name="font-desc" value="PT Sans 11"/>
+                            </attributes>
+                            <style>
+                              <class name="checkin_description"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label_item">
+                      <placeholder/>
+                    </child>
+                    <style>
+                      <class name="checkin"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="UntappdFrame_4">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="label_yalign">0</property>
+                    <property name="shadow_type">out</property>
+                    <child>
+                      <object class="GtkBox" id="UntappdBox_4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkImage" id="avatar_4">
+                            <property name="width_request">100</property>
+                            <property name="height_request">100</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="stock">gtk-missing-image</property>
+                            <style>
+                              <class name="avatar"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="description_4">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;check-in description&gt;</property>
+                            <attributes>
+                              <attribute name="font-desc" value="PT Sans 11"/>
+                            </attributes>
+                            <style>
+                              <class name="checkin_description"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label_item">
+                      <placeholder/>
+                    </child>
+                    <style>
+                      <class name="checkin"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="UntappdFrame_5">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="label_yalign">0</property>
+                    <property name="shadow_type">out</property>
+                    <child>
+                      <object class="GtkBox" id="UntappdBox_5">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <object class="GtkImage" id="avatar_5">
+                            <property name="width_request">100</property>
+                            <property name="height_request">100</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="stock">gtk-missing-image</property>
+                            <style>
+                              <class name="avatar"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="description_5">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">&lt;check-in description&gt;</property>
+                            <attributes>
+                              <attribute name="font-desc" value="PT Sans 11"/>
+                            </attributes>
+                            <style>
+                              <class name="checkin_description"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label_item">
+                      <placeholder/>
+                    </child>
+                    <style>
+                      <class name="checkin"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
                 </child>
                 <style>
-                  <class name="checkin"/>
+                  <class name="checkin_boxes"/>
                 </style>
               </object>
               <packing>
@@ -1017,59 +1275,14 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFrame" id="UntappdFrame_2">
+              <object class="GtkImage" id="powered_by_untappd_image">
+                <property name="width_request">166</property>
+                <property name="height_request">40</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">out</property>
-                <child>
-                  <object class="GtkBox" id="UntappdBox_2">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImage" id="avatar_2">
-                        <property name="width_request">100</property>
-                        <property name="height_request">100</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="avatar"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="description_2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;check-in description&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 11"/>
-                        </attributes>
-                        <style>
-                          <class name="checkin_description"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <child type="label_item">
-                  <placeholder/>
-                </child>
-                <style>
-                  <class name="checkin"/>
-                </style>
+                <property name="margin_left">10</property>
+                <property name="margin_right">10</property>
+                <property name="pixbuf">../images/pbu_40_grey.png</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1077,192 +1290,6 @@
                 <property name="position">1</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkFrame" id="UntappdFrame_3">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">out</property>
-                <child>
-                  <object class="GtkBox" id="UntappdBox_3">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImage" id="avatar_3">
-                        <property name="width_request">100</property>
-                        <property name="height_request">100</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="avatar"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="description_3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;check-in description&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 11"/>
-                        </attributes>
-                        <style>
-                          <class name="checkin_description"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <child type="label_item">
-                  <placeholder/>
-                </child>
-                <style>
-                  <class name="checkin"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFrame" id="UntappdFrame_4">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">out</property>
-                <child>
-                  <object class="GtkBox" id="UntappdBox_4">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImage" id="avatar_4">
-                        <property name="width_request">100</property>
-                        <property name="height_request">100</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="avatar"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="description_4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;check-in description&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 11"/>
-                        </attributes>
-                        <style>
-                          <class name="checkin_description"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <child type="label_item">
-                  <placeholder/>
-                </child>
-                <style>
-                  <class name="checkin"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFrame" id="UntappdFrame_5">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="label_yalign">0</property>
-                <property name="shadow_type">out</property>
-                <child>
-                  <object class="GtkBox" id="UntappdBox_5">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImage" id="avatar_5">
-                        <property name="width_request">100</property>
-                        <property name="height_request">100</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
-                        <style>
-                          <class name="avatar"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="description_5">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;check-in description&gt;</property>
-                        <attributes>
-                          <attribute name="font-desc" value="PT Sans 11"/>
-                        </attributes>
-                        <style>
-                          <class name="checkin_description"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <child type="label_item">
-                  <placeholder/>
-                </child>
-                <style>
-                  <class name="checkin"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
-              </packing>
-            </child>
-            <style>
-              <class name="checkin_boxes"/>
-            </style>
           </object>
           <packing>
             <property name="expand">False</property>
