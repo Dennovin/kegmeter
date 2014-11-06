@@ -191,6 +191,8 @@ class KegMeter(object):
         for checkin, display in zip(checkins, self.checkin_displays):
             display.update(checkin)
 
+        return True
+
     def main(self):
         Gdk.threads_init()
 
