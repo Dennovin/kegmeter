@@ -20,6 +20,14 @@ sudo mkdir -p /data
 sudo chown kegmeter /data
 ( cd /data && sudo -u kegmeter git clone https://github.com/Dennovin/kegmeter.git )
 
+# Add udev rules
+cat | sudo tee /etc/udev/rules.d/49-teensy.rules <<EOF
+ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{ID_MM_DEVICE_IGNORE}="1"
+ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{MTP_NO_PROBE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", MODE:="0666"
+KERNEL=="ttyACM*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", MODE:="0666"
+EOF
+
 # Set up autologin/autostart
 sudo update-rc.d lightdm defaults
 sudo update-rc.d lightdm enable
