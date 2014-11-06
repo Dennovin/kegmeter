@@ -101,7 +101,7 @@ class Checkin(object):
     @property
     def time_since(self):
         try:
-            delta = datetime.now() - datetime.strptime(self.created_at, "%a, %d %b %Y %H:%M:%S +0000")
+            delta = datetime.utcnow() - datetime.strptime(self.created_at, "%a, %d %b %Y %H:%M:%S +0000")
             return ago.human(delta, precision=2)
         except AttributeError as e:
             return ""
