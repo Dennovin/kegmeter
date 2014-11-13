@@ -61,13 +61,18 @@ Type=Application
 Exec=/usr/bin/unclutter -idle 0
 EOF
 
+# Disable overscan
+sudo sed -i -e 's/\#disable_overscan/disable_overscan/g;' /boot/config.txt
+
 # Disable screensaver and powersaving
 grep -v "^@xscreensaver" /etc/xdg/lxsession/LXDE/autostart | sudo tee /etc/xdg/lxsession/LXDE/autostart
 
-sudo tee -a /etc/X11/xinit/xinitrc <<EOF
+sudo -u kegmeter tee /home/kegmeter/.xsession <<EOF
 xset s off
 xset -dpms
 xset s noblank
+
+exec /etc/alternatives/x-session-manager
 EOF
 
 # Download PT Sans font
