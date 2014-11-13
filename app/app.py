@@ -26,7 +26,7 @@ def run_app():
                         help="Do not run web server.")
     parser.add_argument("--debug", dest="debug", action="store_true",
                         help="Display debugging information.")
-    parser.add_argument("--logfile", dest="logfile"
+    parser.add_argument("--logfile", dest="logfile",
                         help="Output to log file instead of STDOUT.")
 
     args = parser.parse_args()
