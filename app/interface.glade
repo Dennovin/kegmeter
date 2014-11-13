@@ -48,7 +48,7 @@
                       <object class="GtkLabel" id="beer_name_1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">50</property>
+                        <property name="margin_top">30</property>
                         <property name="label" translatable="yes">&lt;beer name&gt;</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 24"/>
@@ -167,7 +167,7 @@
                         <property name="can_focus">False</property>
                         <property name="margin_left">20</property>
                         <property name="margin_right">20</property>
-                        <property name="margin_top">50</property>
+                        <property name="margin_top">30</property>
                         <property name="margin_bottom">20</property>
                         <property name="label" translatable="yes">&lt;beer description&gt;</property>
                         <property name="justify">fill</property>
@@ -282,7 +282,7 @@
                       <object class="GtkLabel" id="beer_name_2">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">50</property>
+                        <property name="margin_top">30</property>
                         <property name="label" translatable="yes">&lt;beer name&gt;</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 24"/>
@@ -401,7 +401,7 @@
                         <property name="can_focus">False</property>
                         <property name="margin_left">20</property>
                         <property name="margin_right">20</property>
-                        <property name="margin_top">50</property>
+                        <property name="margin_top">30</property>
                         <property name="margin_bottom">20</property>
                         <property name="label" translatable="yes">&lt;beer description&gt;</property>
                         <property name="justify">fill</property>
@@ -516,7 +516,7 @@
                       <object class="GtkLabel" id="beer_name_3">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">50</property>
+                        <property name="margin_top">30</property>
                         <property name="label" translatable="yes">&lt;beer name&gt;</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 24"/>
@@ -635,7 +635,7 @@
                         <property name="can_focus">False</property>
                         <property name="margin_left">20</property>
                         <property name="margin_right">20</property>
-                        <property name="margin_top">50</property>
+                        <property name="margin_top">30</property>
                         <property name="margin_bottom">20</property>
                         <property name="label" translatable="yes">&lt;beer description&gt;</property>
                         <property name="justify">fill</property>
@@ -750,7 +750,7 @@
                       <object class="GtkLabel" id="beer_name_4">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_top">50</property>
+                        <property name="margin_top">30</property>
                         <property name="label" translatable="yes">&lt;beer name&gt;</property>
                         <attributes>
                           <attribute name="font-desc" value="PT Sans Bold 24"/>
@@ -869,7 +869,7 @@
                         <property name="can_focus">False</property>
                         <property name="margin_left">20</property>
                         <property name="margin_right">20</property>
-                        <property name="margin_top">50</property>
+                        <property name="margin_top">30</property>
                         <property name="margin_bottom">20</property>
                         <property name="label" translatable="yes">&lt;beer description&gt;</property>
                         <property name="justify">fill</property>
