@@ -11,7 +11,7 @@ sudo apt-get -y upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::=
 
 # Install required packages
 sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install \
-  git lxde python python-dev python-pip libsqlite3-dev memcached x11-xserver-utils
+  git lxde python python-dev python-pip libsqlite3-dev memcached x11-xserver-utils unclutter
 
 # Create kegmeter user and download application
 sudo useradd -m -s /bin/bash kegmeter
@@ -52,6 +52,13 @@ sudo -u kegmeter tee /home/kegmeter/.config/autostart/kegmeter.desktop <<EOF
 [Desktop Entry]
 Type=Application
 Exec=/data/kegmeter/app/app.py --logfile /home/kegmeter/kegmeter.log
+EOF
+
+# Run unclutter to hide mouse cursor
+sudo -u kegmeter tee /home/kegmeter/.config/autostart/unclutter.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/unclutter -idle 0
 EOF
 
 # Disable screensaver and powersaving
