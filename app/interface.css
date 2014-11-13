@@ -40,14 +40,8 @@
     color: black;
 }
 
-#OnTap .tap_display_box.active .tap_num {
-    background-color: #dd4;
-    transition: 500ms ease-in-out;
-}
-
 #OnTap .tap_num {
     background-color: #ccc;
-    transition: 500ms ease-in-out;
 }
 
 #OnTap .tap_display_box .beer_description {
