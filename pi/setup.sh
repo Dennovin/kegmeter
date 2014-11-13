@@ -11,7 +11,7 @@ sudo apt-get -y upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::=
 
 # Install required packages
 sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install \
-  git lxde python python-dev python-pip libsqlite3-dev memcached
+  git lxde python python-dev python-pip libsqlite3-dev memcached x11-xserver-utils
 
 # Create kegmeter user and download application
 sudo useradd -m -s /bin/bash kegmeter
@@ -21,7 +21,7 @@ sudo chown kegmeter /data
 ( cd /data && sudo -u kegmeter git clone https://github.com/Dennovin/kegmeter.git )
 
 # Add udev rules
-cat | sudo tee /etc/udev/rules.d/49-teensy.rules <<EOF
+sudo tee /etc/udev/rules.d/49-teensy.rules <<EOF
 ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{ID_MM_DEVICE_IGNORE}="1"
 ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{MTP_NO_PROBE}="1"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", MODE:="0666"
@@ -32,7 +32,7 @@ EOF
 sudo update-rc.d lightdm defaults
 sudo update-rc.d lightdm enable
 
-cat | sudo tee /etc/lightdm/lightdm.conf <<EOF
+sudo tee /etc/lightdm/lightdm.conf <<EOF
 [LightDM]
 
 [SeatDefaults]
@@ -48,10 +48,19 @@ session-wrapper=/etc/X11/Xsession
 EOF
 
 sudo -u kegmeter mkdir -p /home/kegmeter/.config/autostart
-cat | sudo -u kegmeter tee /home/kegmeter/.config/autostart/kegmeter.desktop <<EOF
+sudo -u kegmeter tee /home/kegmeter/.config/autostart/kegmeter.desktop <<EOF
 [Desktop Entry]
 Type=Application
 Exec=/data/kegmeter/app/app.py
+EOF
+
+# Disable screensaver and powersaving
+grep -v "^@xscreensaver" /etc/xdg/lxsession/LXDE/autostart | sudo tee /etc/xdg/lxsession/LXDE/autostart
+
+sudo tee -a /etc/X11/xinit/xinitrc <<EOF
+xset s off
+xset -dpms
+xset s noblank
 EOF
 
 # Download PT Sans font
