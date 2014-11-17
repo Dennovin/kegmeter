@@ -28,7 +28,8 @@ function check_current() {
                     $tap.find(".style").text(response["beer_style"]);
                     $tap.find(".abv").text(response["abv"] + "%");
                     $tap.find(".description").text(response["description"]);
-                    $tap.find(".beerimg").attr("src", response["label"]);
+                    $tap.find(".beerimg").attr("src", response["beer_label"]);
+                    $tap.find(".breweryimg").attr("src", response["brewery_label"]);
                 });
             }
         }

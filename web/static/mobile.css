@@ -60,10 +60,18 @@ div.tap.active .name {
 
 div.tap .beerimg {
     position: absolute;
-    top: 50px;
-    left: 25px;
-    width: 194px;
-    height: 194px;
+    top: 70px;
+    left: 17px;
+    width: 100px;
+    height: 100px;
+}
+
+div.tap .breweryimg {
+    position: absolute;
+    top: 70px;
+    left: 127px;
+    width: 100px;
+    height: 100px;
 }
 
 div.tap .brewery {

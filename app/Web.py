@@ -21,7 +21,7 @@ class StaticHandler(tornado.web.RequestHandler):
 
 class IndexHandler(StaticHandler):
     def get(self):
-        self.write(self.loader.load("index.html").generate())
+        self.write(self.loader.load("index.html").generate(taps=DB.get_taps()))
 
 
 class JsonHandler(tornado.web.RequestHandler):

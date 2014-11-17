@@ -12,7 +12,8 @@
     <div class="body-container">
       <div class="ontap">On Tap</div>
 
-      <div class="tap" tap_id="1">
+      {% for tap in taps %}
+      <div class="tap" tap_id="{{ tap["tap_id"] }}">
         <div class="name"></div>
         <div class="brewery"></div>
         <div class="brewerydescription"></div>
@@ -22,48 +23,13 @@
         <div class="description"></div>
 
         <img class="beerimg" />
+        <img class="breweryimg" />
       </div>
+      {% end %}
 
-      <div class="tap" tap_id="2">
-        <div class="name"></div>
-        <div class="brewery"></div>
-        <div class="brewerydescription"></div>
-        <div class="location"></div>
-        <div class="style"></div>
-        <div class="abv"></div>
-        <div class="description"></div>
-
-        <img class="beerimg" />
-      </div>
-
-      <div class="tap" tap_id="3">
-        <div class="name"></div>
-        <div class="brewery"></div>
-        <div class="brewerydescription"></div>
-        <div class="location"></div>
-        <div class="style"></div>
-        <div class="abv"></div>
-        <div class="description"></div>
-
-        <img class="beerimg" />
-      </div>
-
-      <div class="tap" tap_id="4">
-        <div class="name"></div>
-        <div class="brewery"></div>
-        <div class="brewerydescription"></div>
-        <div class="location"></div>
-        <div class="style"></div>
-        <div class="abv"></div>
-        <div class="description"></div>
-
-        <img class="beerimg" />
-      </div>
-
-      <div class="tap-id" tap_id="1">1</div>
-      <div class="tap-id" tap_id="2">2</div>
-      <div class="tap-id" tap_id="3">3</div>
-      <div class="tap-id" tap_id="4">4</div>
+      {% for tap in taps %}
+      <div class="tap-id" tap_id="{{ tap["tap_id"] }}">{{ tap["tap_id"] }}</div>
+      {% end %}
     </div>
 
     <script type="text/javascript" src="/static/jquery-1.8.2.min.js"></script>
