@@ -32,11 +32,12 @@ class Beer(object):
             "beer_id": self.beer_id,
             "beer_name": self.beer_name,
             "beer_style": self.beer_style,
-            "label": self.label,
+            "beer_label": self.beer_label,
             "description": self.description,
             "abv": self.abv,
             "brewery_name": self.brewery_name,
             "brewery_loc": self.brewery_loc,
+            "brewery_label": self.brewery_label,
             }
 
     def to_json(self):
