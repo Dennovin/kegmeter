@@ -21,6 +21,7 @@ class Untappd(object):
 
         url = urlparse.urljoin(cls.API_URL, endpoint)
         req = requests.get(url, params=params)
+        req.raise_for_status()
         return req.json()
 
 
