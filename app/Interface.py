@@ -2,6 +2,7 @@ import logging
 import os
 import re
 import requests
+import time
 
 from gi.repository import Gtk, Gdk, GdkPixbuf, GObject
 
@@ -126,9 +127,6 @@ class CheckinDisplay(ObjectContainer):
         self.find_children()
 
     def update(self, checkin):
-        if checkin.checkin_id == self.checkin_id:
-            return
-
         self.checkin_id = checkin.checkin_id
         self.load_image(self.avatar, checkin.user_avatar)
 
@@ -141,6 +139,8 @@ class KegMeter(object):
     def __init__(self, kegmeter_status):
         self.kegmeter_status = kegmeter_status
         self.last_update = None
+        self.last_checkin_update = None
+        self.checkins = None
 
         self.builder = Gtk.Builder()
         self.builder.add_from_file(os.path.join(Config.base_dir(), "app", "interface.glade"))
@@ -187,17 +187,21 @@ class KegMeter(object):
         return True
 
     def update_checkins(self):
-        checkins = Checkin.get_latest()
-        for checkin, display in zip(checkins, self.checkin_displays):
-            display.update(checkin)
+        if time.time() - 60 > self.last_checkin_update:
+            self.last_checkin_update = time.time()
+            self.checkins = Checkin.get_latest()
+
+        if self.checkins is not None:
+            for checkin, display in zip(self.checkins, self.checkin_displays):
+                display.update(checkin)
 
         return True
 
     def main(self):
         Gdk.threads_init()
 
-        GObject.idle_add(self.update_taps)
-        GObject.timeout_add(60000, self.update_checkins)
+        GObject.timeout_add(100, self.update_taps)
+        GObject.timeout_add(100, self.update_checkins)
 
         self.update_checkins()
 
