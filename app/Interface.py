@@ -127,8 +127,10 @@ class CheckinDisplay(ObjectContainer):
         self.find_children()
 
     def update(self, checkin):
+        if checkin.checkin_id != self.checkin_id:
+            self.load_image(self.avatar, checkin.user_avatar)
+
         self.checkin_id = checkin.checkin_id
-        self.load_image(self.avatar, checkin.user_avatar)
 
         markup = "<b>{checkin.user_name}</b> enjoyed a <b>{checkin.beer.beer_name}</b> by <b>{checkin.beer.brewery_name}</b>\n<i>{checkin.time_since}</i>".format(checkin=checkin)
         self.description.set_line_wrap(True)
