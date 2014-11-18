@@ -1,5 +1,6 @@
 import ago
 from datetime import datetime
+import logging
 import memcache
 import requests
 import simplejson
@@ -93,6 +94,8 @@ class Beer(object):
 
 
 class Checkin(object):
+    latest_checkins = None
+
     @property
     def beer(self):
         if not hasattr(self, "_beer"):
@@ -126,10 +129,16 @@ class Checkin(object):
     @classmethod
     def get_latest(cls):
         endpoint = "/v4/venue/checkins/{}".format(Config.get("untappd_venue_id"))
-        data = Untappd.api_request(endpoint)
+
+        try:
+            data = Untappd.api_request(endpoint)
+        except Exception as e:
+            logging.warning("Couldn't update checkin details: {}".format(e))
+            return cls.latest_checkins
 
         checkins = []
         for item in data["response"]["checkins"]["items"]:
             checkins.append(cls.new_from_api_response(item))
 
+        cls.latest_checkins = checkins
         return checkins
