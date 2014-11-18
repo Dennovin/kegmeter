@@ -14,6 +14,8 @@ mysterybeer_file = os.path.join(Config.base_dir(), "images", "mysterybeer.png")
 
 
 class ObjectContainer(object):
+    images_loaded = dict()
+
     def find_children(self, gtkobj=None):
         if gtkobj is None:
             gtkobj = self.gtkobj
@@ -29,6 +31,10 @@ class ObjectContainer(object):
                 pass
 
     def load_image(self, image, url):
+        if url in self.images_loaded:
+            image.set_from_pixbuf(self.images_loaded[url])
+            return
+
         try:
             alloc = image.get_allocation()
             imgreq = requests.get(url)
@@ -38,6 +44,7 @@ class ObjectContainer(object):
             pixbuf = loader.get_pixbuf()
             pixbuf = pixbuf.scale_simple(alloc.width, alloc.height, GdkPixbuf.InterpType.BILINEAR)
             image.set_from_pixbuf(pixbuf)
+            self.images_loaded[url] = pixbuf
         except Exception as e:
             logging.error(e)
         finally:
