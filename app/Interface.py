@@ -201,7 +201,7 @@ class KegMeter(object):
         Gdk.threads_init()
 
         GObject.timeout_add(100, self.update_taps)
-        GObject.timeout_add(100, self.update_checkins)
+        GObject.timeout_add(1000, self.update_checkins)
 
         self.update_checkins()
 
