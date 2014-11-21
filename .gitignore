@@ -54,7 +54,11 @@ docs/_build/
 target/
 
 # Config file
-config/settings.json
+base/etc/settings.json
 
 # Database
-db/db.sql
+base/db/db.sql
+
+# Vagrant files
+Vagrantfile
+.vagrant

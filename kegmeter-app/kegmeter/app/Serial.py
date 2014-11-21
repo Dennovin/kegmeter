@@ -5,8 +5,7 @@ import serial.tools.list_ports_posix
 import struct
 import time
 
-from Config import Config
-from Status import TapStatus
+from kegmeter.common import Config, Status
 
 HEADER_SIZE = 8
 

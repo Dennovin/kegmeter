@@ -6,11 +6,10 @@ import time
 
 from gi.repository import Gtk, Gdk, GdkPixbuf, GObject
 
-from Config import Config
-from DB import DB
-from Untappd import Beer, Checkin
+from kegmeter.app import DBClient
+from kegmeter.common import Config, Beer, Checkin
 
-mysterybeer_file = os.path.join(Config.base_dir(), "images", "mysterybeer.png")
+mysterybeer_file = os.path.join(Config.base_dir, "images", "mysterybeer.png")
 
 
 class ObjectContainer(object):
@@ -152,17 +151,17 @@ class KegMeter(object):
         self.checkins = None
 
         self.builder = Gtk.Builder()
-        self.builder.add_from_file(os.path.join(Config.base_dir(), "app", "interface.glade"))
+        self.builder.add_from_file(os.path.join(Config.base_dir, "app", "interface.glade"))
         self.window = self.builder.get_object("OnTap")
 
         self.style_provider = Gtk.CssProvider()
-        self.style_provider.load_from_path(os.path.join(Config.base_dir(), "app", "interface.css"))
+        self.style_provider.load_from_path(os.path.join(Config.base_dir, "app", "interface.css"))
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), self.style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self.tap_container = self.builder.get_object("TapDisplays")
 
         self.taps = dict()
-        for tap in DB.get_taps():
+        for tap in DBClient.get_taps():
             gtkobj = self.builder.get_object("TapEventBox_{}".format(tap["tap_id"]))
             self.taps[tap["tap_id"]] = TapDisplay(tap["tap_id"], gtkobj)
 
@@ -190,7 +189,7 @@ class KegMeter(object):
             return True
 
         self.tap_container.get_style_context().remove_class("has_active")
-        for tap in DB.get_taps():
+        for tap in DBClient.get_taps():
              self.taps[tap["tap_id"]].update(tap)
 
         return True
