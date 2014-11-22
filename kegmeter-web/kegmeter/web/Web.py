@@ -2,6 +2,7 @@ import httplib
 import logging
 import oauth2client.client
 import os
+import pkg_resources
 import simplejson
 import tornado.auth
 import tornado.template
@@ -10,8 +11,8 @@ import tornado.web
 from kegmeter.common import Config, Beer
 from kegmeter.web import DB
 
-template_dir = os.path.join(Config.base_dir, "web", "templates")
-static_dir = os.path.join(Config.base_dir, "web", "static")
+template_dir = pkg_resources.resource_filename(__name__, "templates")
+static_dir = pkg_resources.resource_filename(__name__, "static")
 
 
 class StaticHandler(tornado.web.RequestHandler):
@@ -113,9 +114,6 @@ class AdminIndexHandler(StaticHandler):
 
 
 class WebServer(object):
-    def __init__(self, kegmeter_status):
-        self.kegmeter_status = kegmeter_status
-
     def listen(self):
         self.app = tornado.web.Application(
             [

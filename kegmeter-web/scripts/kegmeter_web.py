@@ -4,7 +4,7 @@ import argparse
 import logging
 import signal
 
-from kegmeter.common import Config, KegmeterStatus
+from kegmeter.common import Config
 from kegmeter.web import DB, WebServer
 
 def run_webserver():
@@ -34,10 +34,7 @@ def run_webserver():
         DB.init_db()
         sys.exit(0)
 
-    status = KegmeterStatus()
-    signal.signal(signal.SIGINT, status.interrupt)
-
-    webserver = WebServer(status)
+    webserver = WebServer()
     webserver.listen()
 
 

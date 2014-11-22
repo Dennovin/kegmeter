@@ -1,5 +1,6 @@
 import logging
 import os
+import pkg_resources
 import re
 import requests
 import time
@@ -8,7 +9,7 @@ from gi.repository import Gtk, Gdk, GdkPixbuf, GObject
 
 from kegmeter.common import Config, Beer, Checkin, DBClient
 
-mysterybeer_file = os.path.join(Config.base_dir, "images", "mysterybeer.png")
+mysterybeer_file = pkg_resources.resource_filename(__name__, "images/mysterybeer.png")
 
 
 class ObjectContainer(object):
@@ -150,11 +151,11 @@ class KegMeter(object):
         self.checkins = None
 
         self.builder = Gtk.Builder()
-        self.builder.add_from_file(os.path.join(Config.base_dir, "app", "interface.glade"))
+        self.builder.add_from_file(pkg_resources.resource_filename(__name__, "interface/interface.glade"))
         self.window = self.builder.get_object("OnTap")
 
         self.style_provider = Gtk.CssProvider()
-        self.style_provider.load_from_path(os.path.join(Config.base_dir, "app", "interface.css"))
+        self.style_provider.load_from_path(pkg_resources.resource_filename(__name__, "interface/interface.css"))
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), self.style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self.tap_container = self.builder.get_object("TapDisplays")

@@ -4,12 +4,15 @@ setup(
     name="kegmeter-app",
     description="Kegmeter libraries used by both the app and the webserver",
     url="https://github.com/Dennovin/kegmeter",
-    version="0.1",
+    version="0.11",
     author="OmniTI Computer Consulting, Inc.",
     author_email="hello@omniti.com",
     namespace_packages=["kegmeter"],
     license="MIT",
     packages=find_packages(),
+    package_data={
+        "kegmeter.app": ["interface/*", "images/*"],
+        },
     install_requires=[
         "kegmeter-common >= 0.1",
         "ago >= 0.0.6",
