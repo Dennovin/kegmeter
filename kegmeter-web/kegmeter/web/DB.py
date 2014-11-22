@@ -6,12 +6,15 @@ import time
 from kegmeter.common import Config
 
 class DB(object):
-    db_file = os.path.join(Config.base_dir, "db", "db.sql")
+    @classmethod
+    def db_file(cls):
+        return os.path.join(Config.base_dir, "db", "db.sql")
+
     schema_file = os.path.join(Config.base_dir, "db", "schema.sql")
 
     @classmethod
     def connect(cls):
-        return sqlite3.connect(cls.db_file)
+        return sqlite3.connect(cls.db_file())
 
     @classmethod
     def init_db(cls):
