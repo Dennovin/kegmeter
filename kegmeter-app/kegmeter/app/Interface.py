@@ -6,8 +6,7 @@ import time
 
 from gi.repository import Gtk, Gdk, GdkPixbuf, GObject
 
-from kegmeter.app import DBClient
-from kegmeter.common import Config, Beer, Checkin
+from kegmeter.common import Config, Beer, Checkin, DBClient
 
 mysterybeer_file = os.path.join(Config.base_dir, "images", "mysterybeer.png")
 
