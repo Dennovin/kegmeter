@@ -5,12 +5,15 @@ setup(
     name="kegmeter-web",
     description="Kegmeter web server",
     url="https://github.com/Dennovin/kegmeter",
-    version="0.11",
+    version="0.12",
     author="OmniTI Computer Consulting, Inc.",
     author_email="hello@omniti.com",
     license="MIT",
     namespace_packages=["kegmeter"],
     packages=find_packages(),
+    package_data={
+        "kegmeter.web": ["static/*", "templates/*"],
+        },
     install_requires=[
         "pysqlite >= 2.6.3",
         "tornado >= 4.0.2",
