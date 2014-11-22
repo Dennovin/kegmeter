@@ -4,6 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name="kegmeter-web",
     description="Kegmeter web server",
+    url="https://github.com/Dennovin/kegmeter",
     version="0.1",
     author="OmniTI Computer Consulting, Inc.",
     author_email="hello@omniti.com",
