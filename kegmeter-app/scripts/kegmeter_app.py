@@ -8,13 +8,11 @@ import threading
 import time
 
 from kegmeter.app import KegMeter, SerialListener
-from kegmeter.common import Config, DB, KegmeterStatus
+from kegmeter.common import Config, KegmeterStatus
 
 def run_app():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--init-db", dest="init_db", action="store_true",
-                        help="Initialize database and exit.")
     parser.add_argument("--base-dir", dest="base_dir",
                         help="Specify base directory.")
     parser.add_argument("--no-interface", dest="no_interface", action="store_true",
@@ -36,10 +34,6 @@ def run_app():
 
     if args.base_dir:
         Config.base_dir = args.base_dir
-
-    if args.init_db:
-        DB.init_db()
-        sys.exit(0)
 
     status = KegmeterStatus()
 
