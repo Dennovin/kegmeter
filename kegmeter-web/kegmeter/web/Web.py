@@ -1,3 +1,4 @@
+import httplib
 import logging
 import oauth2client.client
 import os
@@ -6,7 +7,8 @@ import tornado.auth
 import tornado.template
 import tornado.web
 
-from kegmeter.common import Config, DB, Beer
+from kegmeter.common import Config, Beer
+from kegmeter.web import DB
 
 template_dir = os.path.join(Config.base_dir, "web", "templates")
 static_dir = os.path.join(Config.base_dir, "web", "static")
@@ -40,6 +42,14 @@ class APISearch(tornado.web.RequestHandler):
     def get(self):
         results = Beer.search(self.get_argument("q"))
         self.write(simplejson.dumps([i.to_dict() for i in results]))
+
+
+class UpdateHandler(tornado.web.RequestHandler):
+    def post(self):
+        if self.get_argument("update_secret") != Config.get("update_secret"):
+            raise tornado.web.HTTPError(httplib.UNAUTHORIZED)
+
+        DB.update_amount_poured(self.get_argument("tap_id"), self.get_argument("pulses"))
 
 
 class AuthHandler(tornado.web.RequestHandler, tornado.auth.GoogleOAuth2Mixin):
@@ -114,6 +124,7 @@ class WebServer(object):
                 (r"/json", JsonHandler),
                 (r"/api/beer/(.*)", APIBeerDetails),
                 (r"/api/search", APISearch),
+                (r"/update", UpdateHandler),
                 (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": static_dir}),
                 (r"/auth", AuthHandler),
                 (r"/admin/(.*)", AdminHandler),

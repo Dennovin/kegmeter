@@ -4,8 +4,8 @@ import argparse
 import logging
 import signal
 
-from kegmeter.common import DB, KegmeterStatus
-from kegmeter.web import WebServer
+from kegmeter.common import Config, KegmeterStatus
+from kegmeter.web import DB, WebServer
 
 def run_webserver():
     parser = argparse.ArgumentParser()

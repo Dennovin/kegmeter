@@ -2,7 +2,7 @@ import logging
 import threading
 import time
 
-from DB import DB
+from DBClient import DBClient
 
 class TapStatus(object):
     def __init__(self, tap_id):
@@ -19,7 +19,7 @@ class TapStatus(object):
 
     def clear(self):
         if self.pulses > 0:
-            DB.update_amount_poured(self.tap_id, self.pulses)
+            DBClient.update_amount_poured(self.tap_id, self.pulses)
 
         self.pulses = 0
         self.last_update = None

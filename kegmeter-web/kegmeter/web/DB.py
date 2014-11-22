@@ -3,7 +3,7 @@ import os
 import sqlite3
 import time
 
-from Config import Config
+from kegmeter.common import Config
 
 class DB(object):
     db_file = os.path.join(Config.base_dir, "db", "db.sql")
