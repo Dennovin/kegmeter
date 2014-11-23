@@ -5,7 +5,7 @@ import serial.tools.list_ports_posix
 import struct
 import time
 
-from kegmeter.common import Config, Status
+from kegmeter.common import Config
 
 HEADER_SIZE = 8
 
