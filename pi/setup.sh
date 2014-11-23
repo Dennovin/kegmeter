@@ -16,9 +16,10 @@ sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force
 # Create kegmeter user and download application
 sudo useradd -m -s /bin/bash kegmeter
 
-sudo mkdir -p /data
-sudo chown kegmeter /data
-( cd /data && sudo -u kegmeter git clone https://github.com/Dennovin/kegmeter.git )
+sudo mkdir -p /opt/kegmeter/etc /opt/kegmeter/log
+sudo chown -R kegmeter /opt/kegmeter
+
+sudo pip install kegmeter-app
 
 # Add udev rules
 sudo tee /etc/udev/rules.d/49-teensy.rules <<EOF
@@ -51,7 +52,7 @@ sudo -u kegmeter mkdir -p /home/kegmeter/.config/autostart
 sudo -u kegmeter tee /home/kegmeter/.config/autostart/kegmeter.desktop <<EOF
 [Desktop Entry]
 Type=Application
-Exec=/data/kegmeter/app/app.py --logfile /home/kegmeter/kegmeter.log
+Exec=/usr/local/bin/kegmeter_app.py --logfile /opt/kegmeter/log/kegmeter.log
 EOF
 
 # Run unclutter to hide mouse cursor
@@ -79,12 +80,6 @@ EOF
 wget https://www.google.com/fonts/download?kit=-tlFHQ-l0RbFTifjjgYkyKCWcynf_cDxXwCLxiixG1c -O /tmp/fonts.zip
 sudo -u kegmeter mkdir -p /home/kegmeter/.fonts
 sudo -u kegmeter unzip /tmp/fonts.zip -d /home/kegmeter/.fonts
-
-# Install Python requirements
-sudo pip install /data/kegmeter/app
-
-# Initialize the database
-sudo -u kegmeter /data/kegmeter/app/app.py --init-db
 
 # Reboot... and hopefully everything works
 sudo reboot
