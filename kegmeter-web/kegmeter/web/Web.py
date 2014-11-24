@@ -130,6 +130,8 @@ class WebServer(object):
                 ],
             cookie_secret=Config.get("cookie_secret"),
             google_oauth={
+                "url": Config.get("google_oauth_url"),
+                "key": Config.get("google_oauth_key"),
                 "secret": Config.get("google_oauth_secret"),
                 },
             )
