@@ -3,6 +3,7 @@
 import argparse
 import logging
 import signal
+import sys
 
 from kegmeter.common import Config
 from kegmeter.web import DB, WebServer
