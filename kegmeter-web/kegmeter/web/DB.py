@@ -1,5 +1,6 @@
 import logging
 import os
+import pkg_resources
 import sqlite3
 import time
 
@@ -10,7 +11,7 @@ class DB(object):
     def db_file(cls):
         return os.path.join(Config.base_dir, "db", "db.sql")
 
-    schema_file = os.path.join(Config.base_dir, "db", "schema.sql")
+    schema_file = pkg_resources.resource_filename(__name__, "db/schema.sql")
 
     @classmethod
     def connect(cls):

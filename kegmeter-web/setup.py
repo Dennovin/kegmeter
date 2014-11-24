@@ -5,14 +5,14 @@ setup(
     name="kegmeter-web",
     description="Kegmeter web server",
     url="https://github.com/Dennovin/kegmeter",
-    version="0.13",
+    version="0.14",
     author="OmniTI Computer Consulting, Inc.",
     author_email="hello@omniti.com",
     license="MIT",
     namespace_packages=["kegmeter"],
     packages=find_packages(),
     package_data={
-        "kegmeter.web": ["static/*", "templates/*"],
+        "kegmeter.web": ["static/*", "templates/*", "db/*"],
         },
     install_requires=[
         "kegmeter-common >= 0.1",
