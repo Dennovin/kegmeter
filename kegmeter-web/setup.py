@@ -16,6 +16,7 @@ setup(
         },
     install_requires=[
         "kegmeter-common >= 0.1",
+        "pycrypto >= 2.6.1",
         "pysqlite >= 2.6.3",
         "tornado >= 4.0.2",
         ],
