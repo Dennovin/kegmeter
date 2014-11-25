@@ -13,8 +13,8 @@ from kegmeter.common import Config, KegmeterStatus
 def run_app():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--base-dir", dest="base_dir",
-                        help="Specify base directory.")
+    parser.add_argument("--config-file", dest="config_file",
+                        help="Specify location of configuration file.")
     parser.add_argument("--no-interface", dest="no_interface", action="store_true",
                         help="Do not run interface.")
     parser.add_argument("--no-serial", dest="no_serial", action="store_true",
@@ -32,8 +32,8 @@ def run_app():
     if args.logfile:
         logging.basicConfig(filename=args.logfile)
 
-    if args.base_dir:
-        Config.base_dir = args.base_dir
+    if args.config_file:
+        Config.config_file = args.config_file
 
     status = KegmeterStatus()
 

@@ -4,6 +4,7 @@ import simplejson
 class Config(object):
     settings = None
     base_dir = "/opt/kegmeter"
+    config_file = os.path.join(base_dir, "etc", "settings.json")
 
     @classmethod
     def get(cls, item):
@@ -16,7 +17,6 @@ class Config(object):
         if cls.settings is not None:
             return
 
-        config_file = os.path.join(cls.base_dir, "etc", "settings.json")
-        with open(config_file, "r") as fh:
+        with open(cls.config_file, "r") as fh:
             contents = fh.read()
             cls.settings = simplejson.loads(contents)
