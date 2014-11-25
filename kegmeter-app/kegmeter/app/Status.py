@@ -60,5 +60,5 @@ class KegmeterStatus(object):
         self.temp_sensors[sensor_id] = (0.95 * self.temp_sensors.get(sensor_id, deg_c)) + (0.05 * deg_c)
 
         if time.time() - 60 > self.last_temp_update.get(sensor_id):
-            DBClient.update_temperature(sensor_id, deg_c)
+            DBClient.update_temperature(sensor_id, self.temp_sensors[sensor_id])
             self.last_temp_update[sensor_id] = time.time()
