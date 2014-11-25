@@ -33,8 +33,8 @@ class JsonHandler(tornado.web.RequestHandler):
 class StatsHandler(tornado.web.RequestHandler):
     def get(self):
         status = {
-            "temperatures": DB.get_taps(),
-            "taps": DB.get_temps(),
+            "temperatures": DB.get_temps(),
+            "taps": DB.get_taps(),
             }
 
         self.write(simplejson.dumps(status))
