@@ -2,7 +2,7 @@ import logging
 import threading
 import time
 
-from DBClient import DBClient
+from kegmeter.common import DBClient
 
 class TapStatus(object):
     def __init__(self, tap_id):
@@ -13,6 +13,9 @@ class TapStatus(object):
     def update(self, pulses):
         self.pulses += pulses
         self.last_update = time.time()
+
+    def is_active(self):
+        return (self.last_update is not None)
 
     def is_done(self):
         return (self.last_update is not None and self.last_update < time.time() - 5)
@@ -35,6 +38,7 @@ class KegmeterStatus(object):
 
     def interrupt(self, signal, frame):
         logging.error("Got keyboard interrupt, exiting")
+        self.tap_update_event.set()
         self.interrupt_event.set()
 
     def add_tap(self, tap_id):
@@ -49,11 +53,6 @@ class KegmeterStatus(object):
             if tap.is_done():
                 tap.clear()
                 self.tap_update_event.set()
-
-    def get_active_tap(self):
-        for tap in self.tap_statuses.values():
-            if tap.last_update is not None:
-                return tap
 
     def update_temp(self, sensor_id, deg_c):
         self.temp_sensors[sensor_id] = deg_c

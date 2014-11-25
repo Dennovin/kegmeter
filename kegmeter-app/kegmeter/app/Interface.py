@@ -3,6 +3,7 @@ import os
 import pkg_resources
 import re
 import requests
+import threading
 import time
 
 from gi.repository import Gtk, Gdk, GdkPixbuf, GObject
@@ -71,8 +72,6 @@ class TapDisplay(ObjectContainer):
             self.beer_description.set_text(self.beer.description)
 
     def update(self, tap):
-        self.make_inactive()
-
         if tap["beer_id"] == self.beer_id:
             return
 
@@ -172,45 +171,45 @@ class KegMeter(object):
         self.window.fullscreen()
         self.window.show_all()
 
-    def update_taps(self):
-        if self.kegmeter_status.interrupt_event.is_set():
-            self.shutdown()
-            return False
-
-        if not self.kegmeter_status.tap_update_event.is_set():
-            return True
-
-        self.kegmeter_status.tap_update_event.clear()
-
-        active_tap = self.kegmeter_status.get_active_tap()
-        if active_tap is not None:
-            self.tap_container.get_style_context().add_class("has_active")
-            self.taps[active_tap.tap_id].update_active_tap(active_tap)
-            return True
-
+    def update_active_taps(self):
         self.tap_container.get_style_context().remove_class("has_active")
+
+        for tap in self.kegmeter_status.tap_statuses.values():
+            if tap.is_active():
+                self.tap_container.get_style_context().add_class("has_active")
+                self.taps[tap.tap_id].update_active_tap(tap)
+            else:
+                self.taps[tap.tap_id].make_inactive()
+
+    def update_tap_info(self):
         for tap in DBClient.get_taps():
              self.taps[tap["tap_id"]].update(tap)
 
         return True
 
-    def update_checkins(self):
-        if time.time() - 60 > self.last_checkin_update:
-            self.last_checkin_update = time.time()
-            self.checkins = Checkin.get_latest()
-
+    def update_checkin_display(self):
         if self.checkins is not None:
             for checkin, display in zip(self.checkins, self.checkin_displays):
                 display.update(checkin)
 
         return True
 
+    def update_checkins(self):
+        self.checkins = Checkin.get_latest()
+        return True
+
     def main(self):
         Gdk.threads_init()
 
-        GObject.timeout_add(100, self.update_taps)
-        GObject.timeout_add(1000, self.update_checkins)
+        GObject.timeout_add(1000, self.update_checkin_display)
+        GObject.timeout_add(60000, self.update_tap_info)
+        GObject.timeout_add(120000, self.update_checkins)
 
+        self.update_listener_thread = threading.Thread(target=self.update_listener)
+        self.update_listener_thread.daemon = True
+        self.update_listener_thread.start()
+
+        self.update_tap_info()
         self.update_checkins()
 
         Gtk.main()
@@ -219,3 +218,11 @@ class KegMeter(object):
         logging.error("Interface exiting")
         self.window.destroy()
         Gtk.main_quit()
+
+    def update_listener(self):
+        while not self.kegmeter_status.interrupt_event.is_set():
+            self.kegmeter_status.tap_update_event.wait()
+            self.kegmeter_status.tap_update_event.clear()
+            GObject.idle_add(self.update_active_taps)
+
+        self.shutdown()

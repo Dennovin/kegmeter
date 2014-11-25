@@ -7,8 +7,8 @@ import sys
 import threading
 import time
 
-from kegmeter.app import KegMeter, SerialListener
-from kegmeter.common import Config, KegmeterStatus
+from kegmeter.app import KegMeter, KegmeterStatus, SerialListener
+from kegmeter.common import Config
 
 def run_app():
     parser = argparse.ArgumentParser()
