@@ -4,7 +4,7 @@ setup(
     name="kegmeter-app",
     description="Kegmeter libraries used by both the app and the webserver",
     url="https://github.com/Dennovin/kegmeter",
-    version="0.2",
+    version="0.20",
     author="OmniTI Computer Consulting, Inc.",
     author_email="hello@omniti.com",
     namespace_packages=["kegmeter"],
@@ -14,7 +14,7 @@ setup(
         "kegmeter.app": ["interface/*", "images/*"],
         },
     install_requires=[
-        "kegmeter-common >= 0.2",
+        "kegmeter-common >= 0.20",
         "ago >= 0.0.6",
         "pygobject >= 3.8.2",
         "pyserial >= 2.7",
