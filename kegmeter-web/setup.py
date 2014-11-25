@@ -5,7 +5,7 @@ setup(
     name="kegmeter-web",
     description="Kegmeter web server",
     url="https://github.com/Dennovin/kegmeter",
-    version="0.17",
+    version="0.2",
     author="OmniTI Computer Consulting, Inc.",
     author_email="hello@omniti.com",
     license="MIT",

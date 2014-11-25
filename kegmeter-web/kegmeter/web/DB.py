@@ -55,3 +55,13 @@ class DB(object):
         cursor = db.cursor()
         cursor.execute("insert into flowmeter(tap_id, flow_time, num_pulses) values(?, strftime('%s', 'now'), ?)", [tap_id, pulses])
         db.commit()
+
+    @classmethod
+    def update_temperature(cls, sensor_id, deg_c):
+        logging.debug("Updating temperature on sensor {}, {} degrees".format(sensor_id, deg_c))
+
+        db = cls.connect()
+        cursor = db.cursor()
+        cursor.execute("insert or replace into temperature(sensor_id, deg_c, last_reading) values(?, ?, strftime('%s', 'now'))", [sensor_id, deg_c])
+        db.commit()
+

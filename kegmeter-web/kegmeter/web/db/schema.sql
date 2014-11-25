@@ -35,3 +35,9 @@ create trigger insert_flowmeter after insert on flowmeter
 begin
   update taps set amount_poured = amount_poured + NEW.num_pulses where tap_id = NEW.tap_id;
 end;
+
+create table temperature (
+  sensor_id integer primary key,
+  deg_c numeric,
+  last_reading integer
+);

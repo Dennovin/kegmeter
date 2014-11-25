@@ -50,7 +50,11 @@ class UpdateHandler(tornado.web.RequestHandler):
         if self.get_argument("update_secret") != Config.get("update_secret"):
             raise tornado.web.HTTPError(httplib.UNAUTHORIZED)
 
-        DB.update_amount_poured(self.get_argument("tap_id"), self.get_argument("pulses"))
+        if self.get_argument("tap_id", False) and self.get_argument("pulses", False):
+            DB.update_amount_poured(self.get_argument("tap_id"), self.get_argument("pulses"))
+
+        if self.get_argument("sensor_id", False) and self.get_argument("deg_c", False):
+            DB.update_temperature(self.get_argument("sensor_id"), self.get_argument("deg_c"))
 
 
 class AuthHandler(tornado.web.RequestHandler, tornado.auth.GoogleOAuth2Mixin):

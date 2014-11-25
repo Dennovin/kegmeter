@@ -28,11 +28,10 @@ class TapStatus(object):
 class KegmeterStatus(object):
     def __init__(self):
         self.tap_update_event = threading.Event()
-        self.temp_update_event = threading.Event()
         self.interrupt_event = threading.Event()
 
         self.tap_statuses = dict()
-        self.temp_statuses = dict()
+        self.temp_sensors = dict()
 
     def interrupt(self, signal, frame):
         logging.error("Got keyboard interrupt, exiting")
@@ -56,6 +55,6 @@ class KegmeterStatus(object):
             if tap.last_update is not None:
                 return tap
 
-    def update_temp(self, temp_id, temp):
-        self.temp_update_event.set()
-        self.temp_statuses[temp_id] = temp
+    def update_temp(self, sensor_id, deg_c):
+        self.temp_sensors[sensor_id] = deg_c
+        DBClient.update_temperature(sensor_id, deg_c)

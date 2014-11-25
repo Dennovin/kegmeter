@@ -25,3 +25,14 @@ class DBClient(object):
                 "tap_id": tap_id,
                 "pulses": pulses,
                 })
+
+    @classmethod
+    def update_temperature(cls, sensor_id, deg_c):
+        logging.debug("Sending update for temperature sensor {}, {} degrees".format(sensor_id, deg_c))
+
+        url = urlparse.urljoin(cls.web_host(), "update")
+        requests.post(url, params={
+                "update_secret": Config.get("update_secret"),
+                "sensor_id": sensor_id,
+                "deg_c": deg_c,
+                })
