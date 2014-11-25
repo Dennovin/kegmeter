@@ -36,6 +36,8 @@ class KegmeterStatus(object):
         self.tap_statuses = dict()
         self.temp_sensors = dict()
 
+        self.last_temp_update = None
+
     def interrupt(self, signal, frame):
         logging.error("Got keyboard interrupt, exiting")
         self.tap_update_event.set()
@@ -56,4 +58,7 @@ class KegmeterStatus(object):
 
     def update_temp(self, sensor_id, deg_c):
         self.temp_sensors[sensor_id] = deg_c
-        DBClient.update_temperature(sensor_id, deg_c)
+
+        if time.time() - 60 > self.last_temp_update:
+            DBClient.update_temperature(sensor_id, deg_c)
+            self.last_temp_update = time.time()
