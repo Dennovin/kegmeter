@@ -53,5 +53,5 @@ class DB(object):
 
         db = cls.connect()
         cursor = db.cursor()
-        cursor.execute("update taps set amount_poured = amount_poured + ? where tap_id = ?", [pulses, tap_id])
+        cursor.execute("insert into flowmeter(tap_id, flow_time, num_pulses) values(?, strftime('%s', 'now'), ?)", [tap_id, pulses])
         db.commit()
