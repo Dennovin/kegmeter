@@ -48,6 +48,23 @@ class DB(object):
         return taps
 
     @classmethod
+    def get_temps(cls):
+        temps = []
+
+        cursor = cls.connect().cursor()
+        cursor.execute("select sensor_id, deg_c from temperature order by sensor_id")
+
+        for row in cursor:
+            temps.append({
+                    "sensor_id": row[0],
+                    "deg_c": row[1],
+                    })
+
+        cursor.close()
+
+        return temps
+
+    @classmethod
     def update_amount_poured(cls, tap_id, pulses):
         logging.debug("Updating tap {} in database, {} pulses".format(tap_id, pulses))
 

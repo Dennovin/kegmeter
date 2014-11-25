@@ -26,11 +26,18 @@ class IndexHandler(StaticHandler):
 
 
 class JsonHandler(tornado.web.RequestHandler):
-    def initialize(self):
-        self.loader = tornado.template.Loader(template_dir)
-
     def get(self):
         self.write(simplejson.dumps(DB.get_taps()))
+
+
+class StatsHandler(tornado.web.RequestHandler):
+    def get(self):
+        status = {
+            "temperatures": DB.get_taps(),
+            "taps": DB.get_temps(),
+            }
+
+        self.write(simplejson.dumps(status))
 
 
 class APIBeerDetails(tornado.web.RequestHandler):
@@ -124,6 +131,7 @@ class WebServer(object):
                 (r"/", IndexHandler),
                 (r"/(favicon.ico)", tornado.web.StaticFileHandler, {"path": static_dir}),
                 (r"/json", JsonHandler),
+                (r"/stats", StatsHandler),
                 (r"/api/beer/(.*)", APIBeerDetails),
                 (r"/api/search", APISearch),
                 (r"/update", UpdateHandler),
