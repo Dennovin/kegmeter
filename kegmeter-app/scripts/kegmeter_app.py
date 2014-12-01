@@ -11,6 +11,8 @@ from kegmeter.app import KegMeter, KegmeterStatus, SerialListener
 from kegmeter.common import Config
 
 def run_app():
+    logging.basicConfig(format="%(asctime)-15s %(message)s")
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--config-file", dest="config_file",

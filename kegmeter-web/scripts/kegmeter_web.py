@@ -9,6 +9,8 @@ from kegmeter.common import Config
 from kegmeter.web import DB, WebServer
 
 def run_webserver():
+    logging.basicConfig(format="%(asctime)-15s %(message)s")
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--init-db", dest="init_db", action="store_true",
