@@ -12,7 +12,7 @@ sudo apt-get -y upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::=
 # Install required packages
 sudo apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install \
   git lxde python python-dev python-pip python-tk python-imaging-tk libsqlite3-dev \
-  libjpeg-dev tk8.6-dev tcl8.6-dev memcached x11-xserver-utils unclutter
+  libjpeg8-dev tk8.5-dev tcl8.5-dev memcached x11-xserver-utils unclutter
 
 # Create kegmeter user and download application
 sudo useradd -m -s /bin/bash kegmeter
