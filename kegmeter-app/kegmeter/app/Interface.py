@@ -226,7 +226,8 @@ class KegMeter(object):
         for i in range(Config.get("num_checkins")):
             self.checkin_displays.append(CheckinDisplay(self.checkin_container))
 
-        self.powered_image = Tkinter.PhotoImage(file=pbu_file)
+        self.powered_image_pil = Image.open(pbu_file)
+        self.powered_image = ImageTk.PhotoImage(self.powered_image_pil)
         self.powered_image_container = Tkinter.Label(self.checkin_container, height=40, width=166, image=self.powered_image, background="#dfe7ef")
         self.powered_image_container.pack(side=Tkinter.RIGHT, padx=10)
 

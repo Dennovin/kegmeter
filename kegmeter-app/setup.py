@@ -4,7 +4,7 @@ setup(
     name="kegmeter-app",
     description="Kegmeter libraries used by both the app and the webserver",
     url="https://github.com/Dennovin/kegmeter",
-    version="0.99.0",
+    version="0.99.1",
     author="OmniTI Computer Consulting, Inc.",
     author_email="hello@omniti.com",
     namespace_packages=["kegmeter"],
