@@ -163,6 +163,7 @@ class TapDisplay(object):
 class CheckinDisplay(object):
     def __init__(self, parent):
         self.checkin_id = None
+        self.time_since = None
 
         self.frame = Tkinter.Frame(parent, borderwidth=1, relief=Tkinter.GROOVE)
         self.frame.pack(side=Tkinter.LEFT, expand=True, fill=Tkinter.BOTH, padx=5, pady=10)
@@ -181,10 +182,14 @@ class CheckinDisplay(object):
         self.description.tag_config("i", font=("PT Sans", 11, "italic"))
 
     def update(self, checkin):
+        if checkin.checkin_id == self.checkin_id and checkin.time_since == self.time_since:
+            return
+
         if checkin.checkin_id != self.checkin_id:
             self.avatar_image.load_from_url(checkin.user_avatar)
 
         self.checkin_id = checkin.checkin_id
+        self.time_since = checkin.time_since
 
         self.description.delete(1.0, Tkinter.END)
         self.description.insert(Tkinter.END, checkin.user_name, "b")
@@ -260,7 +265,7 @@ class KegMeter(object):
 
         self.repeat_call(60.0, self.update_tap_info)
         self.repeat_call(120.0, self.update_checkins)
-        self.repeat_call(1.0, self.update_checkin_display)
+        self.repeat_call(15.0, self.update_checkin_display)
 
         self.listener = threading.Thread(target=self.update_listener)
         self.listener.daemon = True
