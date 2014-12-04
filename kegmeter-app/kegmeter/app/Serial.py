@@ -28,9 +28,9 @@ class SerialListener(object):
             raise IOError()
 
     def receive_packet(self):
-        self.port.write("1")
-
         try:
+            self.port.write("1")
+
             header = bytearray(self.port.read(HEADER_SIZE))
 
             buffer_size = int(header[0])
