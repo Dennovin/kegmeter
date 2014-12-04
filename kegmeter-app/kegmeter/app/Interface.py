@@ -150,7 +150,6 @@ class TapDisplay(object):
         logging.debug("making tap {} inactive".format(self.tap_id))
         self.active = False
         self.amount_poured = None
-        self.set_description()
 
         self.amount_poured_frame.pack_forget()
         self.beer_description.pack(expand=True, fill=Tkinter.BOTH, padx=10)
