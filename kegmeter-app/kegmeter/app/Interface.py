@@ -120,8 +120,8 @@ class TapDisplay(object):
         self.beer_description.delete(1.0, Tkinter.END)
         self.beer_description.insert(Tkinter.END, self.beer.description, "description")
 
-        self.brewery_image.load_from_url(beer.brewery_label)
-        self.beer_image.load_from_url(beer.beer_label)
+        self.brewery_image.load_from_url(beer.brewery_label, (100, 100))
+        self.beer_image.load_from_url(beer.beer_label, (100, 100))
 
         self.beer_id = tap["beer_id"]
 
@@ -186,7 +186,7 @@ class CheckinDisplay(object):
             return
 
         if checkin.checkin_id != self.checkin_id:
-            self.avatar_image.load_from_url(checkin.user_avatar)
+            self.avatar_image.load_from_url(checkin.user_avatar, (100, 100))
 
         self.checkin_id = checkin.checkin_id
         self.time_since = checkin.time_since
