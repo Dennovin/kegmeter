@@ -8,6 +8,7 @@ import time
 from kegmeter.common import Config
 
 HEADER_SIZE = 8
+MAX_ERRORS_BEFORE_RECONNECT = 10
 
 class SerialListener(object):
     def __init__(self, kegmeter_status):
@@ -15,7 +16,18 @@ class SerialListener(object):
 
         self.hardware_id = Config.get("hardware_id")
         self.statuses = dict()
+        self.errors = 0
 
+    def try_connect(self):
+        while not (hasattr(self, "port") or self.kegmeter_status.interrupt_event.is_set()):
+            try:
+                self.connect()
+            except IOError:
+                time.sleep(5)
+            except:
+                raise
+
+    def connect(self):
         hwinfo_re = re.compile("^USB.*PID=([0-9a-f\:]+)")
         for dev, dev_name, hwinfo in serial.tools.list_ports_posix.comports():
             match = hwinfo_re.match(hwinfo)
@@ -27,7 +39,21 @@ class SerialListener(object):
             logging.error("Couldn't find device.")
             raise IOError()
 
+    def reconnect(self):
+        logging.warning("Too many errors on serial port - attempting to reconnect")
+
+        try:
+            self.port.close()
+        except Exception as e:
+            logging.warning("Couldn't close port: {}".format(e))
+
+        del self.port
+        self.try_connect()
+
     def receive_packet(self):
+        if self.errors > MAX_ERRORS_BEFORE_RECONNECT:
+            self.reconnect()
+
         try:
             self.port.write("1")
 
@@ -39,6 +65,7 @@ class SerialListener(object):
             num_ports = num_taps + num_temp
         except Exception as e:
             logging.error("Error reading header: {}".format(e))
+            self.errors += 0
             return
 
         try:
@@ -75,6 +102,8 @@ class SerialListener(object):
             self.kegmeter_status.update_temp(i + 1, temp_c)
 
     def listen(self, interval=0.1):
+        self.try_connect()
+
         while not self.kegmeter_status.interrupt_event.is_set():
             self.receive_packet()
             time.sleep(interval)
