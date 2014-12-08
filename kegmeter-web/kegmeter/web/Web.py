@@ -107,7 +107,7 @@ class AdminHandler(tornado.web.RequestHandler):
             beer_id = self.get_argument("beer_id");
 
             cursor = db.cursor()
-            cursor.execute("update taps set beer_id = ?, last_updated = strftime('%s', 'now'), last_updated_by = ? where tap_id = ?", [beer_id, user, tap_id])
+            cursor.execute("update taps set beer_id = ?, last_updated = strftime('%s', 'now'), last_updated_by = ?, amount_poured = 0 where tap_id = ?", [beer_id, user, tap_id])
             cursor.close()
 
             db.commit()
