@@ -65,7 +65,7 @@ class SerialListener(object):
             num_ports = num_taps + num_temp
         except Exception as e:
             logging.error("Error reading header: {}".format(e))
-            self.errors += 0
+            self.errors += 1
             return
 
         try:
