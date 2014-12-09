@@ -41,6 +41,7 @@ class SerialListener(object):
 
     def reconnect(self):
         logging.warning("Too many errors on serial port - attempting to reconnect")
+        self.errors = 0
 
         try:
             self.port.close()
