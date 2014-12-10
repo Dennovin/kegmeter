@@ -39,8 +39,8 @@ class DB(object):
                     "beer_id": row[1],
                     "last_updated": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(row[2])),
                     "last_updated_by": row[3],
-                    "amount_poured": row[4] * Config.get("units_per_pulse"),
-                    "pct_full": 1 - (row[4] * Config.get("units_per_pulse") / Config.get("total_keg_units")),
+                    "amount_poured": row[4] * Config.get("units_per_pulse")[row[0]],
+                    "pct_full": 1 - (row[4] * Config.get("units_per_pulse")[row[0]] / Config.get("total_keg_units")),
                     })
 
         cursor.close()

@@ -126,7 +126,7 @@ class TapDisplay(object):
         self.beer_id = tap["beer_id"]
 
     def update_active_tap(self, tap):
-        self.amount_poured = tap.pulses * Config.get("units_per_pulse")
+        self.amount_poured = tap.pulses * Config.get("units_per_pulse")[tap.tap_id]
         self.amount_poured_number.config(text="{:.2f}".format(self.amount_poured))
 
         if self.active:
