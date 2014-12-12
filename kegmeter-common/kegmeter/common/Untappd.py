@@ -69,6 +69,19 @@ class Beer(object):
 
     @classmethod
     def new_from_id(cls, beer_id):
+        if not beer_id:
+            obj = cls()
+            obj.beer_id = None
+            obj.beer_name = "Empty"
+            obj.beer_style = "Nothing"
+            obj.beer_label = None
+            obj.description = "You'll get nothing and like it."
+            obj.abv = 0.0
+            obj.brewery_name = "No Brewery"
+            obj.brewery_loc = "Nowhere"
+
+            return obj
+
         endpoint = "/v4/beer/info/{}".format(beer_id)
 
         data = cls.memcache.get(str(beer_id))
