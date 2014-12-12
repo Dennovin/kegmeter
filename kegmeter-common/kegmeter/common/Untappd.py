@@ -78,6 +78,7 @@ class Beer(object):
             obj.description = "You'll get nothing and like it."
             obj.abv = 0.0
             obj.brewery_name = "No Brewery"
+            obj.brewery_label = None
             obj.brewery_loc = "Nowhere"
 
             return obj
