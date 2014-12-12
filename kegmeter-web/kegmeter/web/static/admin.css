@@ -41,6 +41,12 @@ body {
     font-weight: bold;
 }
 
+.input-row .clear {
+    cursor: pointer;
+    position: absolute;
+    left: 23em;
+}
+
 .input-row .currentname.empty {
     font-weight: normal;
     color: #777;

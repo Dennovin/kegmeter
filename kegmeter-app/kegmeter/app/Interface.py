@@ -1,20 +1,21 @@
+from PIL import Image, ImageTk
+from StringIO import StringIO
+import Tkinter
 import base64
+import colormath.color_objects
+import colormath.color_conversions
 import logging
 import md5
 import os
-from PIL import Image, ImageTk
 import pkg_resources
 import re
 import requests
-from StringIO import StringIO
 import threading
 import time
-import Tkinter
 import ttk
 
 from kegmeter.common import Config, Beer, Checkin, DBClient
 
-mysterybeer_file = pkg_resources.resource_filename(__name__, "images/mysterybeer.png")
 pbu_file = pkg_resources.resource_filename(__name__, "images/pbu_40_grey.png")
 highlight_color = "#ffff6f"
 
@@ -44,6 +45,24 @@ class ImageLabel(object):
 
 
 class TapDisplay(object):
+    pack_options = {
+        "frame": { "side": Tkinter.LEFT, "expand": True, "fill": Tkinter.BOTH, "pady": 10, "padx": 5 },
+        "beer_name": { "pady": (30, 0) },
+        "beer_style": {},
+        "images": {},
+        "brewery_image": { "side": Tkinter.LEFT, "padx": 10 },
+        "beer_image": { "side": Tkinter.LEFT, "padx": 10 },
+        "tap_num": { "side": Tkinter.BOTTOM, "fill": Tkinter.X },
+        "pct_full_meter": { "side": Tkinter.BOTTOM, "fill": Tkinter.X, "padx": 10, "pady": 20 },
+        "abv": { "side": Tkinter.BOTTOM },
+        "brewery_loc": { "side": Tkinter.BOTTOM },
+        "brewery_name": { "side": Tkinter.BOTTOM },
+        "beer_description": { "expand": True, "fill": Tkinter.BOTH, "padx": 10 },
+        "amount_poured_frame": { "expand": True, "fill": Tkinter.Y },
+        "amount_poured_number": { "side": Tkinter.LEFT, "anchor": Tkinter.NW },
+        "amount_poured_text": { "side": Tkinter.LEFT, "anchor": Tkinter.NW },
+        }
+
     def __init__(self, tap_id, parent):
         self.tap_id = tap_id
 
@@ -51,56 +70,69 @@ class TapDisplay(object):
         self.active = False
 
         self.frame = Tkinter.Frame(parent, borderwidth=1, relief=Tkinter.GROOVE)
-        self.frame.pack(side=Tkinter.LEFT, expand=True, fill=Tkinter.BOTH, pady=10, padx=5)
+        self.pack("frame")
         self.frame.pack_propagate(0)
 
         # From top down
         self.beer_name = Tkinter.Label(self.frame, text="<beer name>", font=("PT Sans", 24, "bold"))
-        self.beer_name.pack(pady=(30, 0))
-
         self.beer_style = Tkinter.Label(self.frame, text="<beer style>", font=("PT Sans", 17))
-        self.beer_style.pack()
-
         self.images = Tkinter.Frame(self.frame, pady=50)
-        self.images.pack()
-
         self.brewery_image = ImageLabel(self.images, background="#dfdfdf", height=100, width=100)
-        self.brewery_image.pack(side=Tkinter.LEFT, padx=10)
-
         self.beer_image = ImageLabel(self.images, background="#dfdfdf", height=100, width=100)
-        self.beer_image.pack(side=Tkinter.LEFT, padx=10)
+
+        self.pack("beer_name", "beer_style", "images", "brewery_image", "beer_image")
 
         # From bottom up
-        self.tap_num = Tkinter.Label(self.frame, text=tap_id, background="#efefef", font=("PT Sans", 16, "bold"))
-        self.tap_num.pack(side=Tkinter.BOTTOM, fill=Tkinter.X)
-
+        self.tap_num = Tkinter.Label(self.frame, text=tap_id, font=("PT Sans", 16, "bold"))
         self.pct_full_meter = ttk.Progressbar(self.frame, maximum=1.0)
-        self.pct_full_meter.pack(side=Tkinter.BOTTOM, fill=Tkinter.X, padx=10, pady=20)
-
         self.abv = Tkinter.Label(self.frame, text="0.0%", font=("PT Sans", 20, "bold"), pady=10)
-        self.abv.pack(side=Tkinter.BOTTOM)
-
         self.brewery_loc = Tkinter.Label(self.frame, text="<brewery location>", font=("PT Sans", 14))
-        self.brewery_loc.pack(side=Tkinter.BOTTOM)
-
         self.brewery_name = Tkinter.Label(self.frame, text="<brewery name>", font=("PT Sans", 18, "bold"))
-        self.brewery_name.pack(side=Tkinter.BOTTOM)
+
+        self.pack("tap_num", "pct_full_meter", "abv", "brewery_loc", "brewery_name")
 
         # Description or amount poured gets remaining space in between
         self.beer_description = Tkinter.Text(self.frame, font=("PT Sans", 12), borderwidth=0, wrap=Tkinter.WORD, pady=20)
-        self.beer_description.pack(expand=True, fill=Tkinter.BOTH, padx=10)
         self.beer_description.tag_config("description", justify=Tkinter.CENTER)
 
         self.amount_poured_frame = Tkinter.Frame(self.frame, pady=20, background=highlight_color)
         self.amount_poured_number = Tkinter.Label(self.amount_poured_frame, font=("PT Sans", 36, "bold"), background=highlight_color)
-        self.amount_poured_number.pack(side=Tkinter.LEFT, anchor=Tkinter.NW)
         self.amount_poured_text = Tkinter.Label(self.amount_poured_frame, font=("PT Sans", 36), background=highlight_color, text=" ounces poured")
-        self.amount_poured_text.pack(side=Tkinter.LEFT, anchor=Tkinter.NW)
+
+        self.pack("beer_description", "amount_poured_number", "amount_poured_text")
+
+        self.set_background("#ffffff")
+
+    def pack(self, *obj_names):
+        for obj_name in obj_names:
+            getattr(self, obj_name).pack(**self.pack_options[obj_name])
+
+    def unpack(self, *obj_names):
+        for obj_name in obj_names:
+            getattr(self, obj_name).pack_forget()
+
+    def set_background(self, color_hex):
+        for obj in ["frame", "beer_name", "beer_style", "images", "beer_description", "brewery_name", "brewery_loc", "abv"]:
+            getattr(self, obj).config(background=color_hex)
+
+        color = colormath.color_objects.sRGBColor.new_from_rgb_hex(color_hex)
+        tap_num_color = colormath.color_conversions.convert_color(color, colormath.color_objects.HSLColor)
+        tap_num_color.hsl_l -= 0.1
+        tap_num_color = colormath.color_conversions.convert_color(tap_num_color, colormath.color_objects.sRGBColor)
+
+        self.tap_num.config(background=tap_num_color.get_rgb_hex())
 
     def update(self, tap):
         self.pct_full_meter.config(value=tap["pct_full"])
 
         if tap["beer_id"] == self.beer_id:
+            return
+
+        if not tap["beer_id"]:
+            self.beer_name.config(text="Empty")
+            self.beer_style.config(text="")
+            self.unpack("images", "brewery_name", "brewery_loc", "beer_style", "abv", "pct_full_meter", "beer_description")
+            self.set_background("#dfdfdf")
             return
 
         try:
@@ -110,6 +142,9 @@ class TapDisplay(object):
             return
 
         self.beer = beer
+
+        self.pack("images", "brewery_name", "brewery_loc", "beer_style", "abv", "pct_full_meter", "beer_description")
+        self.set_background("#ffffff")
 
         self.beer_name.config(text=beer.beer_name)
         self.beer_style.config(text=beer.beer_style)
@@ -136,12 +171,9 @@ class TapDisplay(object):
         self.active = True
 
         self.beer_description.pack_forget()
-        self.amount_poured_frame.pack(expand=True, fill=Tkinter.Y)
+        self.pack("amount_poured_frame")
 
-        for obj in ["frame", "beer_name", "beer_style", "images", "beer_description", "brewery_name", "brewery_loc", "abv"]:
-            getattr(self, obj).config(background=highlight_color)
-
-        self.tap_num.config(background="#dfdf4f")
+        self.set_background(highlight_color)
 
     def make_inactive(self):
         if not self.active:
@@ -152,12 +184,9 @@ class TapDisplay(object):
         self.amount_poured = None
 
         self.amount_poured_frame.pack_forget()
-        self.beer_description.pack(expand=True, fill=Tkinter.BOTH, padx=10)
+        self.pack("beer_description")
 
-        for obj in ["frame", "beer_name", "beer_style", "images", "beer_description", "brewery_name", "brewery_loc", "abv"]:
-            getattr(self, obj).config(background="White")
-
-        self.tap_num.config(background="#efefef")
+        self.set_background("#ffffff")
 
 class CheckinDisplay(object):
     def __init__(self, parent):
@@ -215,7 +244,7 @@ class KegMeter(object):
         self.title.pack(fill=Tkinter.X)
 
         # Taps
-        self.tap_container = Tkinter.Frame(background="#dfdfdf", padx=10)
+        self.tap_container = Tkinter.Frame(background="#bfbfc7", padx=10)
         self.tap_container.pack(expand=True, fill=Tkinter.BOTH)
 
         self.taps = dict()

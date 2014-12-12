@@ -45,6 +45,25 @@ function show_search_box(e) {
     $(this).parents(".input-row").children(".options").empty().show();
 }
 
+function clear_tap(e) {
+    var tap_id = $(this).parents(".input-row").attr("tap_id");
+    $.ajax({
+        "url": "/admin/update",
+        "type": "POST",
+        "data": {
+            "tap_id": tap_id,
+            "beer_id": null
+        },
+        "dataType": "json",
+        "success": function(response) {
+            $(this).parents(".input-row").find(".currentname").text("Empty").addClass("empty");
+            $row = $(".input-row[tap_id=" + response["tap_id"] + "]");
+            $row.attr("beer_id", null);
+        }
+    });
+
+}
+
 function search(elem) {
     if(!$(elem).val() || $.trim($(elem).val()) == "") {
         return;
@@ -103,6 +122,7 @@ $("document").ready(function() {
     });
 
     $(".currentname").click(show_search_box);
+    $(".clear").click(clear_tap);
     $(".searchbox").keyup(search_key_up);
     $("body").click(hide_search_boxes);
     $(".input-row").click(function(e) {
