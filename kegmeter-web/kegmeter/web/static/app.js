@@ -42,7 +42,7 @@ function check_current() {
                     $tap.find(".abv").text(response["abv"] + "%");
                     $tap.find(".description").text(response["description"]);
                     $tap.find(".breweryimg").attr("src", response["brewery_label"]);
-                    $tap.find(".checkin-link").attr("href", response["untappd_url"]);
+                    $tap.find(".checkin-link").attr("href", "https://untappd.com/qr/beer/" + response["beer_id"]);
                     $(".beerimg[tap_id=" + $tap.attr("tap_id") + "]").css("background-image", "url('" + response["beer_label"] + "')");
                 });
             }
