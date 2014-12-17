@@ -3,33 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <title>On Tap</title>
-    <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/static/mobile.css" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/static/mobile.css" type="text/css" media="only screen and (max-device-width: 600px)" />
+    <link rel="stylesheet" href="/static/style.css" type="text/css" media="only screen and (min-device-width: 601px)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
   <body>
     <div class="body-container">
       <div class="ontap">On Tap</div>
 
-      {% for tap in taps %}
-      <div class="tap" tap_id="{{ tap["tap_id"] }}">
-        <div class="name"></div>
-        <div class="brewery"></div>
-        <div class="brewerydescription"></div>
-        <div class="location"></div>
-        <div class="style"></div>
-        <div class="abv"></div>
-        <div class="description"></div>
-
-        <img class="beerimg" />
-        <img class="breweryimg" />
+      <div class="beer-img-container">
+        {% for tap in taps %}
+        <div class="beerimg" tap_id="{{ tap["tap_id"] }}"></div>
+        {% end %}
       </div>
-      {% end %}
+
+      <div class="tap-container">
+        {% for tap in taps %}
+        <div class="tap" tap_id="{{ tap["tap_id"] }}">
+          <div class="name"></div>
+          <div class="brewery"></div>
+          <div class="brewerydescription"></div>
+          <div class="location"></div>
+          <div class="style"></div>
+          <div class="abv"></div>
+          <div class="description"></div>
+
+          <img class="breweryimg" />
+
+          <div class="checkin-link-container">
+            <a class="checkin-link">Check In On Untappd</a>
+          </div>
+        </div>
+        {% end %}
+      </div>
 
       {% for tap in taps %}
       <div class="tap-id" tap_id="{{ tap["tap_id"] }}">{{ tap["tap_id"] }}</div>
       {% end %}
+
+      <img id="pbu-image" src="/static/pbu_40_black.png" />
     </div>
 
     <script type="text/javascript" src="/static/jquery-1.8.2.min.js"></script>

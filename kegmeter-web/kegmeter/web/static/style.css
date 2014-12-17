@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     border: 0;
+    background-color: #ddd;
 }
 
 div {
@@ -13,24 +14,34 @@ div {
 
 div.ontap {
     width: 100%;
+    height: 25px;
     background: #E8E9DE url("/static/bg-introduction.gif") 100% 100% no-repeat;
     text-align: center;
     font-weight: bold;
-    font-size: 150%;
+    font-size: 17px;
     z-index: 1;
     border-bottom: 1px solid #555;
-    padding-bottom: 0.2em;
 }
 
 div.body-container {
-    position: relative;
-    max-width: 100%;
+    position: absolute;
+    width: 900px;
+    margin: 0 0 0 -450px;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-style: solid;
+    border-color: #555;
+    border-width: 0 1px;
+    background-color: white;
+    -webkit-box-shadow: 2px 2px 5px #666666;
+    -moz-box-shadow: 2px 2px 5px #666666;
+    box-shadow: 2px 2px 5px #666666;
 }
 
 div.beer-img-container {
-    width: 110px;
-    position: relative;
-    float: left;
+    width: 140px;
+    position: absolute;
     left: 0;
     margin: 0;
     padding: 0;
@@ -42,8 +53,8 @@ body.has-active div.beer-img-container {
 }
 
 div.beer-img-container .beerimg {
-    height: 120px;
-    width: 110px;
+    height: 140px;
+    width: 140px;
     margin: -1px 0 0 0;
     padding: 0;
     border: 0;
@@ -51,7 +62,11 @@ div.beer-img-container .beerimg {
     background-position: center center;
     border-top: 1px solid #555;
     border-bottom: 1px solid #555;
-    z-index: 1;
+    cursor: pointer;
+}
+
+body.has-active div.beer-img-container .beerimg:hover {
+    background-color: #ffb;
 }
 
 body.has-active div.beer-img-container .beerimg {
@@ -64,19 +79,20 @@ body.has-active div.beer-img-container .beerimg.active {
 }
 
 div.tap-container {
-    position: relative;
-    pointer-events: none;
-    left: 0;
-    top: 0;
+    position: absolute;
+    left: 140px;
+    right: 0;
 }
 
 div.tap {
+    width: 100%;
+    height: 100%;
     position: relative;
-    pointer-events: auto;
-    height: 120px;
-    margin: 0 0 0 110px;
+    height: 140px;
+    margin: 0;
     padding: 0;
     border-bottom: 1px solid #555;
+    cursor: pointer;
 }
 
 div.tap.inactive {
@@ -85,44 +101,52 @@ div.tap.inactive {
 
 div.tap.active {
     border: 0;
-    height: 480px;
 }
 
 div.tap .name, div.tap .style, div.tap .brewery, div.tap .location, div.tap .abv {
     position: absolute;
+    left: 120px;
+    right: 0;
+    text-align: center;
 }
 
 div.tap .breweryimg {
-    display: none;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100px;
+    height: 100px;
 }
 
 div.tap .name {
-    top: 0.1em;
-    left: 15px;
+    top: 15px;
+    font-size: 20px;
     white-space: nowrap;
-    overflow: hidden;
     font-weight: bold;
-    font-size: 140%;
 }
 
 div.tap .style {
-    top: 2.3em;
-    left: 15px;
+    top: 37px;
+    font-size: 16px;
 }
 
 div.tap .brewery {
-    top: 3.5em;
-    left: 15px;
-    white-space: nowrap;
-    overflow: hidden;
+    top: 65px;
+    font-size: 12px;
+}
+
+div.tap .location {
+    top: 80px;
+    font-size: 12px;
 }
 
 div.tap .abv {
-    top: 4.7em;
-    left: 15px;
+    bottom: 10px;
+    font-size: 22px;
+    top: 100px;
 }
 
-div.tap .description, div.tap .brewerydescription, div.tap .checkin-link-container, div.tap .location {
+div.tap .description, div.tap .brewerydescription, div.tap .checkin-link-container {
     display: none;
 }
 
@@ -137,40 +161,51 @@ div.tap.active .name, div.tap.active .style, div.tap.active .brewery, div.tap.ac
 }
 
 div.tap.active .name {
-    font-size: 170%;
+    font-size: 24px;
+}
+
+div.tap.active .style {
+    top: 44px;
 }
 
 div.tap.active .abv {
-    top: 3.4em;
+    top: 60px;
+    font-size: 16px;
 }
 
 div.tap.active .description {
     position: absolute;
-    top: 6.3em;
-    bottom: 6.6em;
-    left: 15px;
-    right: 15px;
+    top: 88px;
+    height: 160px;
+    left: 50px;
+    right: 50px;
     display: block;
     overflow: hidden;
     text-align: justify;
     font-size: 12px;
 }
 
+div.tap.active .breweryimg {
+    top: 265px;
+    left: inherit;
+    right: 10px;
+}
+
 div.tap.active .brewery {
-    top: inherit;
-    bottom: 5.5em;
+    top: 285px;
+    font-size: 20px;
     font-weight: bold;
 }
 
 div.tap.active .location {
-    bottom: 4.4em;
-    display: block;
+    top: 309px;
+    font-size: 16px;
 }
 
 div.tap.active .checkin-link-container {
     display: block;
     position: absolute;
-    bottom: 2.0em;
+    top: 349px;
     left: 0;
     right: 0;
     text-align: center;
@@ -185,9 +220,9 @@ div.tap.active .checkin-link {
     -webkit-border-radius: 8;
     -moz-border-radius: 8;
     border-radius: 8px;
-    -webkit-box-shadow: 2px 2px 5px #666666;
-    -moz-box-shadow: 2px 2px 5px #666666;
-    box-shadow: 2px 2px 5px #666666;
+    -webkit-box-shadow: 2px 2px 5px #666;
+    -moz-box-shadow: 2px 2px 5px #666;
+    box-shadow: 2px 2px 5px #666;
     background-image: -webkit-linear-gradient(top, #fc0, #eb0);
     background-image: -moz-linear-gradient(top, #fc0, #eb0);
     background-image: -ms-linear-gradient(top, #fc0, #eb0);
@@ -197,19 +232,15 @@ div.tap.active .checkin-link {
     text-decoration: none;
 }
 
+div.tap.active .checkin-link:hover {
+}
+
 div.tap-id {
     display: none;
 }
 
 img#pbu-image {
-    display: none;
-}
-
-body.has-active img#pbu-image {
-    display: block;
     position: absolute;
-    bottom: 2px;
-    right: 2px;
-    height: 1em;
-    width: 4.15em;
+    bottom: 5px;
+    right: 5px;
 }

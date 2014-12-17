@@ -1,14 +1,27 @@
-$(".tap").click(function(e) {
+$("[tap_id]").click(function(e) {
     if($(this).hasClass("active")) {
-        $(".active").removeClass("active");
-        $(".inactive").removeClass("inactive");
+        clear_active();
     } else {
-        $(".tap").addClass("inactive");
-        $(this).removeClass("inactive").addClass("active");
-        $(".tap-id").addClass("inactive");
-        $(".tap-id[tap_id=" + $(this).attr("tap_id") + "]").removeClass("inactive").addClass("active");
+        make_active($(this).attr("tap_id"));
     }
 });
+
+$(".checkin-link").click(function(e) {
+    e.stopPropagation();
+});
+
+function clear_active() {
+    $(".active").removeClass("active");
+    $(".inactive").removeClass("inactive");
+    $(".has-active").removeClass("has-active");
+}
+
+function make_active(tap_id) {
+    $(".active").removeClass("active");
+    $(".tap, .tap-id").addClass("inactive");
+    $("[tap_id=" + tap_id + "]").removeClass("inactive").addClass("active");
+    $("body").addClass("has-active");
+}
 
 function check_current() {
     get_taps(function(data) {
@@ -28,8 +41,9 @@ function check_current() {
                     $tap.find(".style").text(response["beer_style"]);
                     $tap.find(".abv").text(response["abv"] + "%");
                     $tap.find(".description").text(response["description"]);
-                    $tap.find(".beerimg").attr("src", response["beer_label"]);
                     $tap.find(".breweryimg").attr("src", response["brewery_label"]);
+                    $tap.find(".checkin-link").attr("href", response["untappd_url"]);
+                    $(".beerimg[tap_id=" + $tap.attr("tap_id") + "]").css("background-image", "url('" + response["beer_label"] + "')");
                 });
             }
         }

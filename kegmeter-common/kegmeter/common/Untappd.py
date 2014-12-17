@@ -40,6 +40,7 @@ class Beer(object):
             "brewery_name": self.brewery_name,
             "brewery_loc": self.brewery_loc,
             "brewery_label": self.brewery_label,
+            "untappd_url": self.untappd_url,
             }
 
     def to_json(self):
@@ -64,6 +65,7 @@ class Beer(object):
             brewery["location"]["brewery_state"],
             brewery["country_name"],
             )
+        obj.untappd_url = "https://untappd.com/b/{}/{}".format(beer["beer_slug"], beer["bid"])
 
         return obj
 
@@ -80,6 +82,7 @@ class Beer(object):
             obj.brewery_name = "No Brewery"
             obj.brewery_label = None
             obj.brewery_loc = "Nowhere"
+            obj.untappd_url = None
 
             return obj
 
