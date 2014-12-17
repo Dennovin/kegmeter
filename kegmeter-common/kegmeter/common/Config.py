@@ -3,8 +3,7 @@ import simplejson
 
 class Config(object):
     settings = None
-    base_dir = "/opt/kegmeter"
-    config_file = os.path.join(base_dir, "etc", "settings.json")
+    config_file = "/opt/kegmeter/etc/settings.json"
 
     @classmethod
     def get(cls, item):

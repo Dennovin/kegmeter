@@ -9,7 +9,7 @@ from kegmeter.common import Config
 class DB(object):
     @classmethod
     def db_file(cls):
-        return os.path.join(Config.base_dir, "db", "db.sql")
+        return Config.get("db_file")
 
     schema_file = pkg_resources.resource_filename(__name__, "db/schema.sql")
 
